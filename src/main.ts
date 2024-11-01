@@ -22,4 +22,4 @@ app.use(PrimeVue, {
 
 app.mount('#app')
 
-app.mount('#app')
+
