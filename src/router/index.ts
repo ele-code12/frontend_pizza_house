@@ -10,6 +10,25 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/categorias_producto',
+      name: 'categorias_productos',
+      component: () => import('../views/CategoriaProductoView.vue'),
+      children: [{ path: '', component: () => import('../components/categoriaProducto/CategoriaProductoList.vue') }]
+    },
+    {
+      path: '/clientes',
+      name: 'clientes',
+      component: () => import('../views/ClienteView.vue'),
+      children: [
+        { path: '', component: () => import('../components/cliente/ClienteList.vue') },
+        { path: 'crear', component: () => import('../components/cliente/ClienteCreate.vue') },
+        {
+          path: 'editar/:id',
+          component: () => import('../components/cliente/ClienteEdit.vue')
+        }
+      ]
+    },
+    {
       path: '/about',
       name: 'about',
       
