@@ -4,7 +4,7 @@ export interface Empleado {
     email: string
     fecha_eliminacion: Date
     cargo: string
-    tefefono: string
+    telefono: string
     salario: number
     fecha_nacimiento: Date
   }
