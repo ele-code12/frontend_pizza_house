@@ -22,17 +22,17 @@ const router = createRouter({
       component: () => import('../views/CategoriaProductoView.vue'),
       children: [{ path: '', component: () => import('../components/categoriaProducto/CategoriaProductoList.vue') }]
     },
-    {
-      path: '/productos',
-      name: 'Productos',
-      component: () => import('../views/'),
-      children: [{ path: '', component: () => import('../components/producto/ProductoList.vue') }]
-    },
+    // {
+    //   path: '/productos',
+    //   name: 'Productos',
+    //   component: () => import('../views/'),
+    //   children: [{ path: '', component: () => import('../components/producto/ProductoList.vue') }]
+    // },
     {
       path: '/promociones',
       name: 'promociones',
-      component: () => import('../views/'),
-      children: [{ path: '', component: () => import('../components') }]
+      component: () => import('../views/PromocionView.vue'),
+      children: [{ path: '', component: () => import('../components/promocion/PromocionCreate.vue') }]
     },
     {
       path: '/clientes',
