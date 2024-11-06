@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Categoria } from '@/models/categoriaProducto'
+import type { CategoriaProducto } from '@/models/categoriaProducto'
 import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
 import router from '@/router'
@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
-var categorias = ref<Categoria[]>([])
+var categorias = ref<CategoriaProducto[]>([])
 
 async function getCategorias() {
   categorias.value = await http.get(ENDPOINT).then((response) => response.data)

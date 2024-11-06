@@ -3,6 +3,6 @@ export interface Promocion {
     fecha_eliminacion: Date
     descripcion: string
     descuento_porcentaje: number
-    fecha_inicio: Date
-    fecha_fin: Date
+    fechaInicio: Date
+    fechaFin: Date
 }

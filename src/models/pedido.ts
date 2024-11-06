@@ -11,5 +11,5 @@ export interface Pedido {
     total: number
     id_promocion: Promocion
     direccion_entrega: string
-    fecha_eliminacion: Date
+    fechaEliminacion: Date
   }
