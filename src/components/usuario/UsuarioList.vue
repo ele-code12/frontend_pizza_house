@@ -36,7 +36,7 @@ onMounted(() => {
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><RouterLink to="/">Inicio</RouterLink></li>
-        <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+        <li class="breadcrumb-item active" aria-current="page">Tipo Usuarios</li>
       </ol>
     </nav>
 
@@ -57,7 +57,6 @@ onMounted(() => {
             <th scope="col">Usuario</th>
             <th scope="col">Clave</th>
             <th scope="col">Tipo Usuario</th>
-            <th scope="col">Fecha Eliminación</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -65,9 +64,7 @@ onMounted(() => {
           <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
             <th scope="row">{{ usuario.id }}</th>
             <td>{{ usuario.usuario }}</td>
-            <td>{{ usuario.clave }}</td>
             <td>{{ usuario.tipoUsuario }}</td>
-            <td>{{ usuario.fecha_eliminacion }}</td>
             <td>
               <button class="btn btn-link" @click="toEdit(usuario.id)">
                 <font-awesome-icon icon="fa-solid fa-edit" />

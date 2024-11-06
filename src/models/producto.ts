@@ -6,6 +6,6 @@ export interface Producto {
     precio: number
     disponibilidad: number
     tamanio: string
-    fecha_eliminacion: Date
+    fechaEliminacion: Date
     categoriaProducto: CategoriaProducto
   }

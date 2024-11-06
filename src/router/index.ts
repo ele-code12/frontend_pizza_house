@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/stores';
+import { getTokenFromLocalStorage } from '@/helpers';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,10 +12,27 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/categorias_producto',
-      name: 'categorias_productos',
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/categoriasProducto',
+      name: 'categoriasProductos',
       component: () => import('../views/CategoriaProductoView.vue'),
       children: [{ path: '', component: () => import('../components/categoriaProducto/CategoriaProductoList.vue') }]
+    },
+    {
+      path: '/productos',
+      name: 'Productos',
+      component: () => import('../views/'),
+      children: [{ path: '', component: () => import('../components/producto/ProductoList.vue') }]
+    },
+    {
+      path: '/promociones',
+      name: 'promociones',
+      component: () => import('../views/'),
+      children: [{ path: '', component: () => import('../components') }]
     },
     {
       path: '/clientes',
@@ -27,6 +46,13 @@ const router = createRouter({
           component: () => import('../components/cliente/ClienteEdit.vue')
         }
       ]
+    },
+   
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: () => import('../views/UsuarioView.vue'),
+      children: [{ path: '', component: () => import('../components/usuario/UsuarioList.vue') }]
     },
     {
       path: '/about',
@@ -42,5 +68,16 @@ const router = createRouter({
     },
   ]
 })
+router.beforeEach(async to => {
+  const publicPages = ["/login"];
+  const authRequired = !publicPages.includes(to.path);
+  const authStore = useAuthStore();
+
+  if (authRequired && !getTokenFromLocalStorage()) {
+    if (authStore) authStore.logout();
+    authStore.returnUrl = to.fullPath;
+    return "/login";
+  }
+});
 
 export default router
