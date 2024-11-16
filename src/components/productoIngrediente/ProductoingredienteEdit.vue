@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import http from '@/plugins/axios';
-import router from '@/router';
+import { onMounted, ref } from 'vue'
+import http from '@/plugins/axios'
+import router from '@/router'
 
 const props = defineProps<{
-  ENDPOINT_API: string;
-}>();
+  ENDPOINT_API: string
+}>()
 
-const ENDPOINT = props.ENDPOINT_API ?? '';
-const id = router.currentRoute.value.params['id'];
-const idProducto = ref('');
-const idIngrediente = ref('');
-const cantidad = ref('');
-const fechaEliminacion = ref('');
+const ENDPOINT = props.ENDPOINT_API ?? ''
+const id = router.currentRoute.value.params['id']
+const idProducto = ref('')
+const idIngrediente = ref('')
+const cantidad = ref('')
+const fechaEliminacion = ref('')
 
 async function editarProductoIngrediente() {
   await http
@@ -22,25 +22,25 @@ async function editarProductoIngrediente() {
       cantidad: cantidad.value,
       fecha_eliminacion: fechaEliminacion.value
     })
-    .then(() => router.push('/producto-ingredientes'));
+    .then(() => router.push('/producto-ingredientes'))
 }
 
 async function getProductoIngrediente() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    idProducto.value = response.data.idProducto;
-    idIngrediente.value = response.data.idIngrediente;
-    cantidad.value = response.data.cantidad;
-    fechaEliminacion.value = response.data.fecha_eliminacion;
-  });
+    idProducto.value = response.data.idProducto
+    idIngrediente.value = response.data.idIngrediente
+    cantidad.value = response.data.cantidad
+    fechaEliminacion.value = response.data.fecha_eliminacion
+  })
 }
 
 function goBack() {
-  router.go(-1);
+  router.go(-1)
 }
 
 onMounted(() => {
-  getProductoIngrediente();
-});
+  getProductoIngrediente()
+})
 </script>
 
 <template>
@@ -62,7 +62,13 @@ onMounted(() => {
     <div class="row">
       <form @submit.prevent="editarProductoIngrediente">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" v-model="idProducto" placeholder="ID Producto" required />
+          <input
+            type="text"
+            class="form-control"
+            v-model="idProducto"
+            placeholder="ID Producto"
+            required
+          />
           <label for="idProducto">ID Producto</label>
         </div>
         <div class="form-floating mb-3">
@@ -108,5 +114,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

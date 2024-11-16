@@ -7,7 +7,7 @@ const useAuthStore = defineStore('auth', {
   state: () => ({
     user: localStorage.getItem('user') || '',
     token: getTokenFromLocalStorage(),
-    returnUrl: false || '' //aqui tenia que poner null 
+    returnUrl: false || '' //aqui tenia que poner null
   }),
   getters: {},
   actions: {

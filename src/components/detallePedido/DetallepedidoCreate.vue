@@ -1,50 +1,52 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
-import http from '@/plugins/axios';
-import { defineProps } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, ref, watch } from 'vue'
+import http from '@/plugins/axios'
+import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 
-import type { Producto } from '@/models/producto';
-import type { Pedido } from '@/models/pedido';
+import type { Producto } from '@/models/producto'
+import type { Pedido } from '@/models/pedido'
 
-const pedidos = ref<Pedido[]>([]);
-const productos = ref<Producto[]>([]);
+const pedidos = ref<Pedido[]>([])
+const productos = ref<Producto[]>([])
 const detallepedido = ref<
   Array<{
-    idpedido: string;
-    idproducto: string;
-    cantidad: number;
-    precioUnitario: number;
-    subtotal: number;
-    descuento: number;
-    fechaEliminacion?: string;
-    stock?: number;
+    idpedido: string
+    idproducto: string
+    cantidad: number
+    precioUnitario: number
+    subtotal: number
+    descuento: number
+    fechaEliminacion?: string
+    stock?: number
   }>
->([]);
+>([])
 
 const props = defineProps<{
-  ENDPOINT_API: string;
+  ENDPOINT_API: string
 }>()
 
-const router = useRouter();
-const selectedPedidoId = ref<string>('');
+const router = useRouter()
+const selectedPedidoId = ref<string>('')
 
 async function getPedidos() {
-  pedidos.value = await http.get('pedidos').then((response) => response.data);
+  pedidos.value = await http.get('pedidos').then((response) => response.data)
 }
 
 async function getProductos() {
-  productos.value = await http.get('productos').then((response) => response.data);
+  productos.value = await http.get('productos').then((response) => response.data)
 }
 
 onMounted(() => {
-  getPedidos();
-  getProductos();
-});
+  getPedidos()
+  getProductos()
+})
 
 function mostrarTotalPedido() {
-  const sumaTotalPedido = detallepedido.value.reduce((total, detalle) => total + detalle.subtotal, 0).toFixed(2);
-  alert(`La suma total de los detalles del pedido es: ${sumaTotalPedido}`);
+  const sumaTotalPedido = detallepedido.value
+    .reduce((total, detalle) => total + detalle.subtotal, 0)
+    .toFixed(2)
+  alert(`La suma total de los detalles del pedido es: ${sumaTotalPedido}`)
 }
 
 function agregarDetalle() {
@@ -53,49 +55,53 @@ function agregarDetalle() {
     idproducto: '',
     cantidad: 0,
     precioUnitario: 0,
-    subtotal: 0.00,
+    subtotal: 0.0,
     descuento: 0,
     stock: 0,
     fechaEliminacion: ''
-  });
+  })
 }
 
 watch(
   detallepedido,
   async (detalles) => {
     for (let i = 0; i < detalles.length; i++) {
-      const detalle = detalles[i];
+      const detalle = detalles[i]
       if (detalle.idproducto) {
         try {
-          const producto = await http.get(`productos/${detalle.idproducto}`).then((response) => response.data);
-          detalle.stock = producto.stock - detalle.cantidad;
-          detalle.precioUnitario = producto.precio;
-          detalle.subtotal = Number(((detalle.cantidad * detalle.precioUnitario) * (1 - detalle.descuento / 100)).toFixed(2));
+          const producto = await http
+            .get(`productos/${detalle.idproducto}`)
+            .then((response) => response.data)
+          detalle.stock = producto.stock - detalle.cantidad
+          detalle.precioUnitario = producto.precio
+          detalle.subtotal = Number(
+            (detalle.cantidad * detalle.precioUnitario * (1 - detalle.descuento / 100)).toFixed(2)
+          )
         } catch (error) {
-          console.error(`Error al obtener el producto ${detalle.idproducto}:`, error);
+          console.error(`Error al obtener el producto ${detalle.idproducto}:`, error)
         }
       }
     }
   },
   { deep: true }
-);
+)
 
 async function crearDetalles() {
   try {
     await Promise.all(
       detallepedido.value.map(async (detalle) => {
-        detalle.idpedido = selectedPedidoId.value;
-        await http.post(props.ENDPOINT_API, detalle);
+        detalle.idpedido = selectedPedidoId.value
+        await http.post(props.ENDPOINT_API, detalle)
       })
-    );
-    router.push('/detalles');
+    )
+    router.push('/detalles')
   } catch (error) {
-    console.error('Error al crear los detalles del pedido:', error);
+    console.error('Error al crear los detalles del pedido:', error)
   }
 }
 
 function goBack() {
-  router.go(-1);
+  router.go(-1)
 }
 </script>
 
@@ -123,7 +129,8 @@ function goBack() {
         <div class="form-floating mb-3">
           <select v-model="selectedPedidoId" class="form-select" required>
             <option v-for="pedido in pedidos" :value="pedido.id" :key="pedido.id">
-              {{ pedido. }} <!-- el pedido deberia tener un descuento -->
+              {{ pedido. }}
+              <!-- el pedido deberia tener un descuento -->
             </option>
           </select>
           <label for="pedido">Pedido</label>
@@ -161,7 +168,7 @@ function goBack() {
                 class="form-control"
                 v-model="detalle.precioUnitario"
                 placeholder="Precio Unitario"
-                step="0.01"  
+                step="0.01"
                 required
               />
               <label for="precioUnitario">Precio por Unidad</label>
@@ -185,7 +192,12 @@ function goBack() {
               <input
                 type="text"
                 class="form-control"
-                :value="detalle.subtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })"
+                :value="
+                  detalle.subtotal.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  })
+                "
                 placeholder="Subtotal"
                 required
                 readonly
@@ -219,59 +231,59 @@ function goBack() {
 </template>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-  
-  .simpsons-font {
-    font-family: 'Bangers', cursive;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.658);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .simpsons-font:hover {
-    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
-  }
-  
-  .floating-info p {
-    background-color: yellow;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 5px;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .form-floating input[type="number"],
-  .form-floating input[type="text"],
-  .form-select {
-    background-color: rgba(205, 193, 193, 0.751);
-    border: 3px solid #1d1c0a;
-    border-radius: 10px;
-    color: rgb(15, 11, 11);
-    width: 100%;
-    padding: 10px;
-  }
-  
-  .form-floating label {
-    font-weight: bold;
-  }
-  
-  .btn-primary {
-    background-color: #ff7300;
-    border: none;
-  }
-  
-  .btn-primary:hover {
-    background-color: #ff7f0e;
-  }
-  
-  .btn-link {
-    color: #ff6200;
-    text-decoration: underline;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .btn-link:hover {
-    color: #1f180c;
-    text-decoration: none;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.simpsons-font {
+  font-family: 'Bangers', cursive;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.658);
+  transition: all 0.3s ease-in-out;
+}
+
+.simpsons-font:hover {
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+.floating-info p {
+  background-color: yellow;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+  color: black;
+}
+
+.form-floating input[type='number'],
+.form-floating input[type='text'],
+.form-select {
+  background-color: rgba(205, 193, 193, 0.751);
+  border: 3px solid #1d1c0a;
+  border-radius: 10px;
+  color: rgb(15, 11, 11);
+  width: 100%;
+  padding: 10px;
+}
+
+.form-floating label {
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #ff7300;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #ff7f0e;
+}
+
+.btn-link {
+  color: #ff6200;
+  text-decoration: underline;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-link:hover {
+  color: #1f180c;
+  text-decoration: none;
+}
 </style>

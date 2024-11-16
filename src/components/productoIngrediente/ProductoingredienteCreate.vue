@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import http from '@/plugins/axios';
-import router from '@/router';
+import { ref } from 'vue'
+import http from '@/plugins/axios'
+import router from '@/router'
 
 const props = defineProps<{
-  ENDPOINT_API: string;
-}>();
+  ENDPOINT_API: string
+}>()
 
-const ENDPOINT = props.ENDPOINT_API ?? '';
-const idProducto = ref('');
-const idIngrediente = ref('');
-const cantidad = ref('');
-const fechaEliminacion = ref('');
+const ENDPOINT = props.ENDPOINT_API ?? ''
+const idProducto = ref('')
+const idIngrediente = ref('')
+const cantidad = ref('')
+const fechaEliminacion = ref('')
 
 async function crearProductoIngrediente() {
   await http
@@ -21,11 +21,11 @@ async function crearProductoIngrediente() {
       cantidad: cantidad.value,
       fecha_eliminacion: fechaEliminacion.value
     })
-    .then(() => router.push('/producto-ingredientes'));
+    .then(() => router.push('/producto-ingredientes'))
 }
 
 function goBack() {
-  router.go(-1);
+  router.go(-1)
 }
 </script>
 
@@ -48,7 +48,13 @@ function goBack() {
     <div class="row">
       <form @submit.prevent="crearProductoIngrediente">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" v-model="idProducto" placeholder="ID Producto" required />
+          <input
+            type="text"
+            class="form-control"
+            v-model="idProducto"
+            placeholder="ID Producto"
+            required
+          />
           <label for="idProducto">ID Producto</label>
         </div>
         <div class="form-floating mb-3">
@@ -94,5 +100,4 @@ function goBack() {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

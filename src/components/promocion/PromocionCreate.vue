@@ -9,22 +9,22 @@ const props = defineProps<{
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
 
-
 const fechaEliminacion = ref('')
 const descripcion = ref('')
 const descuentoPorcentaje = ref(0)
 const fechaInicio = ref('')
 const fechaFin = ref('')
 
-
 async function crearPromocion() {
-  await http.post(ENDPOINT, {
-    fecha_eliminacion: fechaEliminacion.value,
-    descripcion: descripcion.value,
-    descuento_porcentaje: descuentoPorcentaje.value,
-    fecha_inicio: fechaInicio.value,
-    fecha_fin: fechaFin.value
-  }).then(() => router.push('/promociones'))
+  await http
+    .post(ENDPOINT, {
+      fecha_eliminacion: fechaEliminacion.value,
+      descripcion: descripcion.value,
+      descuento_porcentaje: descuentoPorcentaje.value,
+      fecha_inicio: fechaInicio.value,
+      fecha_fin: fechaFin.value
+    })
+    .then(() => router.push('/promociones'))
 }
 
 function goBack() {
@@ -53,29 +53,58 @@ function goBack() {
     <div class="row">
       <form @submit.prevent="crearPromocion">
         <div class="form-floating mb-3">
-          <input type="date" class="form-control" v-model="fechaEliminacion" placeholder="Fecha Eliminación" required />
+          <input
+            type="date"
+            class="form-control"
+            v-model="fechaEliminacion"
+            placeholder="Fecha Eliminación"
+            required
+          />
           <label for="fechaEliminacion">Fecha Eliminación</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" v-model="descripcion" placeholder="Descripción" required />
+          <input
+            type="text"
+            class="form-control"
+            v-model="descripcion"
+            placeholder="Descripción"
+            required
+          />
           <label for="descripcion">Descripción</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="number" class="form-control" v-model="descuentoPorcentaje" placeholder="Descuento (%)" required min="0" />
+          <input
+            type="number"
+            class="form-control"
+            v-model="descuentoPorcentaje"
+            placeholder="Descuento (%)"
+            required
+            min="0"
+          />
           <label for="descuentoPorcentaje">Descuento (%)</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="date" class="form-control" v-model="fechaInicio" placeholder="Fecha Inicio" required />
+          <input
+            type="date"
+            class="form-control"
+            v-model="fechaInicio"
+            placeholder="Fecha Inicio"
+            required
+          />
           <label for="fechaInicio">Fecha Inicio</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="date" class="form-control" v-model="fechaFin" placeholder="Fecha Fin" required />
+          <input
+            type="date"
+            class="form-control"
+            v-model="fechaFin"
+            placeholder="Fecha Fin"
+            required
+          />
           <label for="fechaFin">Fecha Fin</label>
         </div>
         <div class="text-center mt-3">
-          <button type="submit" class="btn btn-primary btn-lg">
-            Crear
-          </button>
+          <button type="submit" class="btn btn-primary btn-lg">Crear</button>
         </div>
       </form>
     </div>

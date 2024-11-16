@@ -15,7 +15,7 @@ async function crearCliente() {
   await http
     .post(ENDPOINT, {
       Nit: NIT.value,
-      razon_social: razon_social.value,
+      razon_social: razon_social.value
     })
     .then(() => router.push('/clientes'))
 }

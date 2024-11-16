@@ -16,15 +16,14 @@ async function editarCliente() {
   await http
     .patch(`${ENDPOINT}/${id}`, {
       NIT: NIT.value,
-      razon_social: razon_social.value,
+      razon_social: razon_social.value
     })
     .then(() => router.push('/clientes'))
 }
 
 async function getCliente() {
   await http.get(`${ENDPOINT}/${id}`).then((response) => {
-    ;(NIT.value = response.data.nit),
-      (razon_social.value = response.data.razon_social)
+    ;(NIT.value = response.data.nit), (razon_social.value = response.data.razon_social)
   })
 }
 

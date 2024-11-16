@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import '@/assets/vendor/jquery/jquery.min.js'
-import '@/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'
-import '@/assets/js/owl-carousel.js'
-//import '@/assets/js/animation.js'
-import '@/assets/js/imagesloaded.js'
-import '@/assets/js/custom.js'
+
+// Importar otros scripts que dependen de jQuery
+import '@/assets/js/jquery-1.10.2.min.js'
+import '@/assets/js/bootstrap.min.js'
+import '@/assets/js/jquery-1.10.2.js'
+import '@/assets/js/jquery.mixitup.min.js'
+import '@/assets/js/main.js'
+
 import MainHeader from '@/components/MainHeader.vue'
 import MainFooter from '@/components/MainFooter.vue'
 </script>
+
 <template>
-  <main>
-    <MainHeader />
-    <RouterView />
-  </main>
+  <MainHeader />
+  <RouterView />
   <MainFooter />
 </template>
 
 <style>
-@import '@/assets/vendor/bootstrap/css/bootstrap.min.css';
-@import '@/assets/css/fontawesome.css';
-@import '@/assets/css/templatemo-digimedia-v3.css';
-@import '@/assets/css/animated.css';
-@import '@/assets/css/owl.css';
+/* Importar todos los estilos necesarios */
+@import '@/assets/css/bootstrap.css';
+@import '@/assets/css/normalize.css';
+@import '@/assets/css/main.css';
+@import '@/assets/css/style-portfolio.css';
+@import '@/assets/css/picto-foundry-food.css';
+@import '@/assets/css/jquery-ui.css';
 </style>
