@@ -30,13 +30,14 @@ const location = useRoute()
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav main-nav clear navbar-right">
             <li><a class="navactive color_animation" href="#top">BIENVENIDOS</a></li>
-            <li><a class="color_animation" href="#story">ABOUT</a></li>
-            <li><a class="color_animation" href="#pricing">PRICING</a></li>
-            <li><a class="color_animation" href="#beer">BEER</a></li>
-            <li><a class="color_animation" href="#bread">BREAD</a></li>
-            <li><a class="color_animation" href="#featured">FEATURED</a></li>
-            <li><a class="color_animation" href="#reservation">RESERVATION</a></li>
-            <li><a class="color_animation" href="#contact">CONTACT</a></li>
+            <li><a class="color_animation" href="#story">SOBRE NOSOTROS</a></li>
+            <li><a class="color_animation" href="#pricing">PRECIOS</a></li>
+            <li><a class="color_animation" href="#beer">NUESTRO MENU</a></li>
+            <li><a class="color_animation" href="#featured">DESTACADOS</a></li>
+            <li><a class="color_animation" href="#clientes">CLIENTES</a></li> 
+            <li><a class="color_animation" href="#reservation">RESERVAS</a></li>
+            <li><a class="color_animation" href="#contact">CONTACTO</a></li>
+
           </ul>
         </div>
         <!-- /.navbar-collapse -->

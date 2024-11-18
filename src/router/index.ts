@@ -30,7 +30,7 @@ const router = createRouter({
         { path: '', component: () => import('../components/promocion/PromocionCreate.vue') }
       ]
     },*/
-    /* {
+    {
       path: '/clientes',
       name: 'clientes',
       component: () => import('../views/ClienteView.vue'),
@@ -42,7 +42,7 @@ const router = createRouter({
           component: () => import('../components/cliente/ClienteEdit.vue')
         }
       ]
-    },*/
+    },
     {
       path: '/about',
       name: 'about',

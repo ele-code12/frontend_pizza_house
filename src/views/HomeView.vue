@@ -3,11 +3,12 @@
 <template>
   <div>
     <div id="top" class="starter_container2">
-      <img src="@/assets/images/steak.jpg" alt="" />
+      <img src="@/assets/images/pizzas.avif" alt="" />
       <div class="follow_container">
         <div class="col-md-6 col-md-offset-3">
-          <h2 class="top-title">Restaurant</h2>
-          <h2 class="white second-title">" Best in the city "</h2>
+          <h2 class="top-title">Pizza House</h2>
+          <h2 class="white second-title">" El mejor de la ciudad "</h2>
+
           <hr />
         </div>
       </div>
@@ -18,22 +19,23 @@
     <section id="story" class="description_content">
       <div class="text-content container">
         <div class="col-md-6">
-          <h1>About us</h1>
+          <h1>Sobre nosotros</h1>
           <div class="fa fa-cutlery fa-2x"></div>
           <p class="desc-text">
-            Restaurant is a place for simplicity. Good food, good beer, and good service. Simple is
-            the name of the game, and we’re good at finding it in all the right places, even in your
-            dining experience. We’re a small group from Denver, Colorado who make simple food
-            possible. Come join us and see what simplicity tastes like.
+            Nuestro restaurante es un lugar donde la pasión por la pizza cobra vida. Nos
+            especializamos en ofrecer pizzas deliciosas, elaboradas con ingredientes frescos y una
+            masa artesanal que destaca por su sabor y textura. Somos un pequeño equipo de Sucre,
+            Bolivia, comprometido con crear una experiencia única para los amantes de la pizza. Ven
+            a visitarnos y descubre cómo transformamos la simplicidad en un placer irresistible.
           </p>
         </div>
         <div class="col-md-6">
           <div class="img-section">
-            <img src="@/assets/images/kabob.jpg" width="250" height="220" />
-            <img src="@/assets/images/limes.jpg" width="250" height="220" />
+            <img src="@/assets/images/pizza1.jpg" width="250" height="220" />
+            <img src="@/assets/images/pizza2.jpg" width="250" height="220" />
             <div class="img-section-space"></div>
-            <img src="@/assets/images/radish.jpg" width="250" height="220" />
-            <img src="@/assets/images/corn.jpg" width="250" height="220" />
+            <img src="@/assets/images/pizza3.jpg" width="250" height="220" />
+            <img src="@/assets/images/pizza4.avif" width="250" height="220" />
           </div>
         </div>
       </div>
@@ -43,53 +45,51 @@
 
     <section id="pricing" class="description_content">
       <div class="pricing background_content">
-        <h1><span>Affordable</span> pricing</h1>
+        <h1><span>Precios</span> accesibles</h1>
       </div>
       <div class="text-content container">
         <div class="container">
           <div class="row">
             <div id="w">
               <ul id="filter-list" class="clearfix">
-                <li class="filter" data-filter="all">All</li>
-                <li class="filter" data-filter="breakfast">Breakfast</li>
-                <li class="filter" data-filter="special">Special</li>
-                <li class="filter" data-filter="desert">Desert</li>
-                <li class="filter" data-filter="dinner">Dinner</li>
+                <li class="filter" data-filter="all">Todos</li>
+                <li class="filter" data-filter="special">pizzas</li>
+                <li class="filter" data-filter="desert">Postres</li>
               </ul>
               <!-- @end #filter-list -->
               <ul id="portfolio">
                 <li class="item breakfast">
-                  <img src="@/assets/images/food_icon01.jpg" alt="Food" />
-                  <h2 class="white">$20</h2>
+                  <img src="@/assets/images/pizza4.avif" alt="Food" />
+                  <h2 class="white">20 bs</h2>
                 </li>
 
                 <li class="item dinner special">
-                  <img src="@/assets/images/food_icon02.jpg" alt="Food" />
-                  <h2 class="white">$20</h2>
+                  <img src="@/assets/images/pizza2.jpg" alt="Food" />
+                  <h2 class="white">20 bs</h2>
                 </li>
                 <li class="item dinner breakfast">
-                  <img src="@/assets/images/food_icon03.jpg" alt="Food" />
-                  <h2 class="white">$18</h2>
+                  <img src="@/assets/images/pizza3.jpg" alt="Food" />
+                  <h2 class="white">18 bs</h2>
                 </li>
                 <li class="item special">
-                  <img src="@/assets/images/food_icon04.jpg" alt="Food" />
-                  <h2 class="white">$15</h2>
+                  <img src="@/assets/images/pizza4.avif" alt="Food" />
+                  <h2 class="white">15 bs</h2>
                 </li>
                 <li class="item dinner">
-                  <img src="@/assets/images/food_icon05.jpg" alt="Food" />
-                  <h2 class="white">$20</h2>
+                  <img src="@/assets/images/pizza5.avif" alt="Food" />
+                  <h2 class="white">20 bs</h2>
                 </li>
                 <li class="item special">
-                  <img src="@/assets/images/food_icon06.jpg" alt="Food" />
-                  <h2 class="white">$22</h2>
+                  <img src="@/assets/images/pizza6.jpeg" alt="Food" />
+                  <h2 class="white">22 bs</h2>
                 </li>
                 <li class="item desert">
-                  <img src="@/assets/images/food_icon07.jpg" alt="Food" />
-                  <h2 class="white">$32</h2>
+                  <img src="@/assets/images/pizza3.jpg" alt="Food" />
+                  <h2 class="white">32 bs</h2>
                 </li>
                 <li class="item desert breakfast">
-                  <img src="@/assets/images/food_icon08.jpg" alt="Food" />
-                  <h2 class="white">$38</h2>
+                  <img src="@/assets/images/pizza2.jpg" alt="Food" />
+                  <h2 class="white">38 bs</h2>
                 </li>
               </ul>
               <!-- @end #portfolio -->
@@ -104,47 +104,24 @@
 
     <section id="beer" class="description_content">
       <div class="beer background_content">
-        <h1>Great <span>Place</span> to enjoy</h1>
+        <h1>Un <span>lugar</span> increíble para disfrutar</h1>
       </div>
       <div class="text-content container">
         <div class="col-md-5">
           <div class="img-section">
-            <img src="@/assets/images/beer_spec.jpg" width="100%" />
+            <img src="@/assets/images/pizza8.avif" width="100%" />
           </div>
         </div>
         <br />
         <div class="col-md-6 col-md-offset-1">
-          <h1>OUR BEER</h1>
+          <h1>Nuestro Menu</h1>
           <div class="icon-beer fa-2x"></div>
           <p class="desc-text">
-            Here at Restaurant we’re all about the love of beer. New and bold flavors enter our
-            doors every week, and we can’t help but show them off. While we enjoy the classics,
-            we’re always passionate about discovering something new, so stop by and experience our
-            craft at its best.
+            Aquí, en nuestra pizzería, nos apasionan las pizzas. Sabores nuevos y deliciosos llegan
+            a nuestra cocina cada semana, y no podemos evitar compartirlos con ustedes. Aunque
+            disfrutamos de las clásicas, siempre estamos emocionados por descubrir nuevas
+            combinaciones, así que ven y vive nuestra artesanía en su mejor versión.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Our Bread  ============= -->
-
-    <section id="bread" class="description_content">
-      <div class="bread background_content">
-        <h1>Our Breakfast <span>Menu</span></h1>
-      </div>
-      <div class="text-content container">
-        <div class="col-md-6">
-          <h1>OUR BREAD</h1>
-          <div class="icon-bread fa-2x"></div>
-          <p class="desc-text">
-            We love the smell of fresh baked bread. Each loaf is handmade at the crack of dawn,
-            using only the simplest of ingredients to bring out smells and flavors that beckon the
-            whole block. Stop by anytime and experience simplicity at its finest.
-          </p>
-        </div>
-        <div class="col-md-6">
-          <img src="@/assets/images/bread1.jpg" width="260" alt="Bread" />
-          <img src="@/assets/images/bread1.jpg" width="260" alt="Bread" />
         </div>
       </div>
     </section>
@@ -153,16 +130,16 @@
 
     <section id="featured" class="description_content">
       <div class="featured background_content">
-        <h1>Our Featured Dishes <span>Menu</span></h1>
+        <h1>Nuestro <span>menú</span> de platos destacados</h1>
       </div>
       <div class="text-content container">
         <div class="col-md-6">
-          <h1>Have a look to our dishes!</h1>
+          <h1>¡Echa un vistazo a nuestros platos!</h1>
           <div class="icon-hotdog fa-2x"></div>
           <p class="desc-text">
-            Each food is handmade at the crack of dawn, using only the simplest of ingredients to
-            bring out smells and flavors that beckon the whole block. Stop by anytime and experience
-            simplicity at its finest.
+            Cada plato es hecho a mano al amanecer, utilizando solo los ingredientes más simples
+            para resaltar los olores y sabores que atraen a todo el vecindario. Pasa en cualquier
+            momento y experimenta la simplicidad en su máxima expresión.
           </p>
         </div>
         <div class="col-md-6">
@@ -178,15 +155,15 @@
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
                 <div class="item active">
-                  <img src="@/assets/images/slider1.jpg" alt="..." />
+                  <img src="@/assets/images/pizza1.jpg" alt="..." />
                   <div class="carousel-caption"></div>
                 </div>
                 <div class="item">
-                  <img src="@/assets/images/slider2.jpg" alt="..." />
+                  <img src="@/assets/images/pizza2.jpg" alt="..." />
                   <div class="carousel-caption"></div>
                 </div>
                 <div class="item">
-                  <img src="@/assets/images/slider3.jpg" alt="..." />
+                  <img src="@/assets/images/pizza3.jpg" alt="..." />
                   <div class="carousel-caption"></div>
                 </div>
               </div>
@@ -196,11 +173,32 @@
       </div>
     </section>
 
+
+      <!-- ============ Our Bread  ============= -->
+    <!-- <section id="bread" class="description_content">
+      <div class="bread background_content">
+        <h1>Nuestro <span>menú</span> de pizzas</h1>
+      </div>
+      <div class="text-content container">
+        <div class="col-md-6">
+          <h1>NUESTRAS PIZZAS</h1>
+          <div class="icon-bread fa-2x"></div>
+          <p class="desc-text">
+          Aquí, en nuestro restaurante, nos apasionan las pizzas. Nuevas combinaciones y sabores audaces llegan a nuestras puertas cada semana, y no podemos evitar presumir de ellas. Aunque disfrutamos de las clásicas, siempre estamos emocionados por descubrir algo nuevo, así que ven y vive nuestra pasión por la pizza en su mejor versión.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <img src="@/assets/images/bread1.jpg" width="260" alt="Bread" />
+          <img src="@/assets/images/bread1.jpg" width="260" alt="Bread" />
+        </div>
+      </div>
+    </section>  -->
+
     <!-- ============ Reservation  ============= -->
 
     <section id="reservation" class="description_content">
       <div class="featured background_content">
-        <h1>Reserve a Table!</h1>
+        <h1>¡Reserva una mesa!</h1>
       </div>
       <div class="text-content container">
         <div class="inner contact">
@@ -214,14 +212,14 @@
                   <div class="col-lg-8 col-md-6 col-xs-12">
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-xs-6">
-                        <!-- Name -->
+                        <!-- Nombre -->
                         <input
                           type="text"
                           name="first_name"
                           id="first_name"
                           required="required"
                           class="form"
-                          placeholder="First Name"
+                          placeholder="Nombre"
                         />
                         <input
                           type="text"
@@ -229,7 +227,7 @@
                           id="last_name"
                           required="required"
                           class="form"
-                          placeholder="Last Name"
+                          placeholder="Apellido"
                         />
                         <input
                           type="text"
@@ -237,7 +235,7 @@
                           id="state"
                           required="required"
                           class="form"
-                          placeholder="State"
+                          placeholder="Ciudad/Estado"
                         />
                         <input
                           type="text"
@@ -245,19 +243,19 @@
                           id="datepicker"
                           required="required"
                           class="form"
-                          placeholder="Reservation Date"
+                          placeholder="Fecha de Reserva"
                         />
                       </div>
 
                       <div class="col-lg-6 col-md-6 col-xs-6">
-                        <!-- Name -->
+                        <!-- Información -->
                         <input
                           type="text"
                           name="phone"
                           id="phone"
                           required="required"
                           class="form"
-                          placeholder="Phone"
+                          placeholder="Teléfono"
                         />
                         <input
                           type="text"
@@ -265,7 +263,7 @@
                           id="guest"
                           required="required"
                           class="form"
-                          placeholder="Guest Number"
+                          placeholder="Número de Personas"
                         />
                         <input
                           type="email"
@@ -273,7 +271,7 @@
                           id="email"
                           required="required"
                           class="form"
-                          placeholder="Email"
+                          placeholder="Correo Electrónico"
                         />
                         <input
                           type="text"
@@ -281,19 +279,19 @@
                           id="subject"
                           required="required"
                           class="form"
-                          placeholder="Subject"
+                          placeholder="Asunto"
                         />
                       </div>
 
                       <div class="col-xs-6">
-                        <!-- Send Button -->
+                        <!-- Botón Reservar -->
                         <button
                           type="submit"
                           id="submit"
                           name="submit"
                           class="text-center form-btn form-btn"
                         >
-                          Reserve
+                          Reservar
                         </button>
                       </div>
                     </div>
@@ -302,13 +300,13 @@
                   <div class="col-lg-4 col-md-6 col-xs-12">
                     <!-- Message -->
                     <div class="right-text">
-                      <h2>Hours</h2>
+                      <h2>Horarios</h2>
                       <hr />
-                      <p>Monday to Friday: 7:30 AM - 11:30 AM</p>
-                      <p>Saturday & Sunday: 8:00 AM - 9:00 AM</p>
-                      <p>Monday to Friday: 12:00 PM - 5:00 PM</p>
-                      <p>Monday to Saturday: 6:00 PM - 1:00 AM</p>
-                      <p>Sunday to Monday: 5:30 PM - 12:00 AM</p>
+                      <p>Lunes a Viernes: 7:30 AM - 11:30 AM</p>
+                      <p>Sábado y Domingo: 8:00 AM - 9:00 AM</p>
+                      <p>Lunes a Viernes: 12:00 PM - 5:00 PM</p>
+                      <p>Lunes a Sábado: 6:00 PM - 1:00 AM</p>
+                      <p>Domingo a Lunes: 5:30 PM - 12:00 AM</p>
                     </div>
                   </div>
                 </div>
@@ -328,7 +326,8 @@
     <section class="social_connect">
       <div class="text-content container">
         <div class="col-md-6">
-          <span class="social_heading">FOLLOW</span>
+          <span class="social_heading">SIGUENOS EN NUESTRAS REDES SOCIALES</span>
+
           <ul class="social_icons">
             <li><a class="icon-twitter color_animation" href="#" target="_blank"></a></li>
             <li><a class="icon-github color_animation" href="#" target="_blank"></a></li>
@@ -337,9 +336,10 @@
           </ul>
         </div>
         <div class="col-md-4">
-          <span class="social_heading">OR DIAL</span>
+          <span class="social_heading">O LLAMA</span>
+
           <span class="social_info"
-            ><a class="color_animation" href="tel:883-335-6524">(941) 883-335-6524</a></span
+            ><a class="color_animation" href="tel:883-335-6524">(+591) 123456789</a></span
           >
         </div>
       </div>
@@ -364,67 +364,71 @@
         <div class="row">
           <div class="col-md-12">
             <div class="inner contact">
-              <!-- Form Area -->
+              <!-- Área del Formulario -->
               <div class="contact-form">
-                <!-- Form -->
+                <!-- Formulario -->
                 <form id="contact-us" method="post" action="contact.php">
-                  <!-- Left Inputs -->
+                  <!-- Entradas Izquierda -->
                   <div class="col-md-6">
-                    <!-- Name -->
+                    <!-- Nombre -->
                     <input
                       type="text"
                       name="name"
                       id="name"
                       required="required"
                       class="form"
-                      placeholder="Name"
+                      placeholder="Nombre"
                     />
-                    <!-- Email -->
+                    <!-- Correo Electrónico -->
                     <input
                       type="email"
                       name="email"
                       id="email"
                       required="required"
                       class="form"
-                      placeholder="Email"
+                      placeholder="Correo Electrónico"
                     />
-                    <!-- Subject -->
+                    <!-- Asunto -->
                     <input
                       type="text"
                       name="subject"
                       id="subject"
                       required="required"
                       class="form"
-                      placeholder="Subject"
+                      placeholder="Asunto"
                     />
                   </div>
-                  <!-- End Left Inputs -->
-                  <!-- Right Inputs -->
+
+                  <!-- Fin Entradas Izquierda -->
+
+                  <!-- Entradas Derecha -->
                   <div class="col-md-6">
-                    <!-- Message -->
+                    <!-- Mensaje -->
                     <textarea
                       name="message"
                       id="message"
                       class="form textarea"
-                      placeholder="Message"
+                      placeholder="Mensaje"
                     ></textarea>
                   </div>
-                  <!-- End Right Inputs -->
-                  <!-- Bottom Submit -->
+                  <!-- Fin Entradas Derecha -->
+
+                  <!-- Enviar al final -->
                   <div class="relative fullwidth col-xs-12">
-                    <!-- Send Button -->
+                    <!-- Botón Enviar -->
                     <button type="submit" id="submit" name="submit" class="form-btn">
-                      Send Message
+                      Enviar Mensaje
                     </button>
                   </div>
-                  <!-- End Bottom Submit -->
-                  <!-- Clear -->
+                  <!-- Fin Enviar al final -->
+
+                  <!-- Limpiar -->
                   <div class="clear"></div>
                 </form>
               </div>
-              <!-- End Contact Form Area -->
+              <!-- Fin Área del Formulario de Contacto -->
             </div>
-            <!-- End Inner -->
+            <!-- Fin Inner -->
           </div>
         </div>
       </div>
