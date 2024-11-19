@@ -11,6 +11,16 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+    {
+      path: '/usuario',
+      name: 'usuario',
+      component: () => import('../views/UsuarioView.vue')
+    },
+   /*  {
+      path:'/login',
+      name:'login',
+      component: () => import('../views/LoginView.vue')
+    }, */
     /* {
       path: '/categoriasProducto',
       name: 'categoriasProductos',
@@ -30,7 +40,7 @@ const router = createRouter({
         { path: '', component: () => import('../components/promocion/PromocionCreate.vue') }
       ]
     },*/
-    {
+   /*  {
       path: '/clientes',
       name: 'clientes',
       component: () => import('../views/ClienteView.vue'),
@@ -42,7 +52,7 @@ const router = createRouter({
           component: () => import('../components/cliente/ClienteEdit.vue')
         }
       ]
-    },
+    }, */
     {
       path: '/about',
       name: 'about',
@@ -57,7 +67,7 @@ const router = createRouter({
     }
   ]
 })
-/*router.beforeEach(async (to) => {
+/* router.beforeEach(async (to) => {
   const publicPages = ['/login']
   const authRequired = !publicPages.includes(to.path)
   const authStore = useAuthStore()
@@ -67,6 +77,7 @@ const router = createRouter({
     authStore.returnUrl = to.fullPath
     return '/login'
   }
-})*/
+}) */
+
 
 export default router

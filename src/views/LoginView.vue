@@ -13,7 +13,7 @@ function onSubmit() {
 </script>
 
 <template>
-  <div class="my-5 pt-5">
+  <div id="login" class="my-5 pt-5">
     <h1 class="text-center">Iniciar Sesión</h1>
     <form class="form" @submit.prevent="onSubmit">
       <label class="form-label">Usuario:</label>
@@ -28,7 +28,7 @@ function onSubmit() {
   </div>
 </template>
 
-<style>
+<style scoped>
 .form {
   margin: 1.5rem auto;
   display: flex;
@@ -66,5 +66,9 @@ function onSubmit() {
   padding: 1rem 0;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.text-danger {
+  color: red;
 }
 </style>

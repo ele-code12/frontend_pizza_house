@@ -61,7 +61,7 @@ onMounted(() => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
+          <tr v-for="(usuario) in usuarios" :key="usuario.id">
             <th scope="row">{{ usuario.id }}</th>
             <td>{{ usuario.usuario }}</td>
             <td>{{ usuario.tipoUsuario }}</td>
