@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+///import { useAuthStore } from '@/stores/index'
 import { ref } from 'vue'
 
 const showSelect = ref(false)
@@ -43,7 +45,9 @@ function toggleSelect() {
                 </select>
               </div>
             </li>
-            <li><a class="color_animation" href="#clientes">CLIENTES</a></li>
+            <li class="nav-item">
+              <RouterLink to="/clientes" class="nav-link click-scroll">Clientes</RouterLink>
+            </li>
             <li><a class="color_animation" href="#promocion">PROMOCION</a></li>
             <li><a class="color_animation" href="#usuario">USUARIO</a></li>
             <li><a class="color_animation" href="#login">INICIAR SESION</a></li>
