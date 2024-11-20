@@ -4,25 +4,19 @@ import type { Cliente } from '@/models/cliente'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import { useRouter } from 'vue-router'
 
-const props = defineProps<{
-  ENDPOINT_API: 'clientes'
-}>()
-
-const ENDPOINT = props.ENDPOINT_API ?? ''
-const router = useRouter()
-
-const clientes = ref<Cliente[]>([])
+const ENDPOINT = 'clientes'
+let clientes = ref<Cliente[]>([])
+const emit = defineEmits(['edit'])
 const clienteDelete = ref<Cliente | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
 
-async function getClientes() {
+async function obtenerLista() {
   clientes.value = await http.get(ENDPOINT).then((response) => response.data)
 }
 
-function toEdit(id: number) {
-  router.push(`/clientes/editar/${id}`)
+function emitirEdicion(cliente: Cliente) {
+  emit('edit', cliente)
 }
 
 function mostrarEliminarConfirm(cliente: Cliente) {
@@ -30,31 +24,19 @@ function mostrarEliminarConfirm(cliente: Cliente) {
   mostrarConfirmDialog.value = true
 }
 
-async function toDelete() {
-  if (clienteDelete.value) {
-    await http.delete(`${ENDPOINT}/${clienteDelete.value.id}`).then(() => {
-      getClientes()
-      mostrarConfirmDialog.value = false
-    })
-  }
+async function eliminar() {
+  await http.delete(`${ENDPOINT}/${clienteDelete.value?.id}`)
+  obtenerLista()
+  mostrarConfirmDialog.value = false
 }
 
 onMounted(() => {
-  getClientes()
+  obtenerLista()
 })
 </script>
 
 <template>
   <div class="container">
-    <div class="row">
-      <h2>Lista de Clientes</h2>
-      <div class="col-12">
-        <RouterLink to="/clientes/crear">
-          <Button label="Crear Nuevo" icon="pi pi-plus" class="p-button-success" />
-        </RouterLink>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -71,17 +53,19 @@ onMounted(() => {
             <td>{{ cliente.razonSocial }}</td>
             <td>{{ cliente.nit }}</td>
             <td>
-              <Button
-                icon="pi pi-pencil"
-                aria-label="Editar"
-                text
-                @click="toEdit(cliente.id)"
+              <Button 
+                icon="pi pi-pencil" 
+                aria-label="Editar" 
+                text 
+                @click="emitirEdicion(cliente)" 
+                class="btn-editar" 
               />
-              <Button
-                icon="pi pi-trash"
-                aria-label="Eliminar"
-                text
-                @click="mostrarEliminarConfirm(cliente)"
+              <Button 
+                icon="pi pi-trash" 
+                aria-label="Eliminar" 
+                text 
+                @click="mostrarEliminarConfirm(cliente)" 
+                class="btn-eliminar" 
               />
             </td>
           </tr>
@@ -89,31 +73,56 @@ onMounted(() => {
       </table>
     </div>
 
-    <Dialog
-      v-model:visible="mostrarConfirmDialog"
-      header="Confirmar Eliminación"
-      :style="{ width: '25rem' }"
-    >
-      <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+    <Dialog v-model:visible="mostrarConfirmDialog" header="Confirmar Eliminación" :style="{ width: '25rem' }">
+      <p class="texto-eliminar">¿Estás seguro de que deseas eliminar este registro?</p>
       <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          severity="secondary"
-          @click="mostrarConfirmDialog = false"
-        />
-        <Button type="button" label="Eliminar" @click="toDelete" />
+        <Button type="button" label="Cancelar" @click="mostrarConfirmDialog = false" class="btn-cancelar" />
+        <Button type="button" label="Eliminar" @click="eliminar" />
       </div>
     </Dialog>
   </div>
 </template>
 
 <style scoped>
-.container {
-  max-width: 800px;
-  margin: auto;
+.btn-editar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
 }
-.table-responsive {
-  margin-top: 20px;
+
+.btn-editar:hover {
+  background-color: #0056b3;
+}
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.btn-eliminar:hover {
+  background-color: #c82333;
+}
+
+.texto-eliminar {
+  color: white;
+}
+
+.btn-cancelar {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.btn-cancelar:hover {
+  background-color: #ff0019;
 }
 </style>
