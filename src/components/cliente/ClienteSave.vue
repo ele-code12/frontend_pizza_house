@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import type { Cliente } from '@/models/cliente'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
-import { computed } from 'vue'
 
 const ENDPOINT = 'clientes'
 const props = defineProps({
@@ -61,6 +60,7 @@ watch(
   }
 )
 </script>
+
 <template>
   <div class="card flex justify-center">
     <Dialog
@@ -91,11 +91,43 @@ watch(
           type="button"
           label="Cancelar"
           icon="pi pi-times"
-          severity="secondary"
+          class="btn-cancelar"
           @click="dialogVisible = false"
-        ></Button>
-        <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave"></Button>
+        />
+        <Button
+          type="button"
+          label="Guardar"
+          icon="pi pi-save"
+          class="btn-guardar"
+          @click="handleSave"
+        />
       </div>
     </Dialog>
   </div>
 </template>
+
+<style scoped>
+.btn-cancelar {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.btn-cancelar:hover {
+  background-color: #c82333;
+}
+
+.btn-guardar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.btn-guardar:hover {
+  background-color: #218838;
+}
+</style>
