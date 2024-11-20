@@ -1,94 +1,111 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-///import { useAuthStore } from '@/stores/index'
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const showSelect = ref(false)
+const showSelect = ref(false);
 
+// Alternar la visibilidad del select al hacer clic en Productos
 function toggleSelect() {
-  showSelect.value = !showSelect.value
+  showSelect.value = !showSelect.value;
 }
 </script>
 
 <template>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="row">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button
-            type="button"
-            class="navbar-toggle collapsed"
-            data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1"
-          >
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand">Pizza House</a>
+  <header>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="row">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav main-nav clear navbar-right">
+              <!-- Updated items -->
+              <li>
+                <RouterLink to="/" class="navactive color_animation">INICIO</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/clientes" class="navactive color_animation">CLIENTES</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/pedidos" class="navactive color_animation">PEDIDOS</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/detalle-pedido" class="navactive color_animation">DETALLE PEDIDO</RouterLink>
+              </li>
+              <li>
+                <a @click.prevent="toggleSelect" class="navactive color_animation" href="#">
+                  PRODUCTOS
+                </a>
+                <div v-if="showSelect">
+                  <select class="form-control" aria-label="Seleccione una opción">
+                    <option value="categoria_producto">Categoría Producto</option>
+                    <option value="producto_ingrediente">Producto Ingrediente</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <RouterLink to="/promocion" class="navactive color_animation">PROMOCION</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/usuario" class="navactive color_animation">USUARIO</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/login" class="navactive color_animation">INICIAR SESION</RouterLink>
+              </li>
+            </ul>
+          </div>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav main-nav clear navbar-right">
-            <li><a class="navactive color_animation" href="#top">INICIO</a></li>
-            
-            <li class="nav-item">
-              <RouterLink to="/productos" class="nav-link click-scroll">Productos</RouterLink>
-            </li>
-
-            <li class="nav-item">
-              <RouterLink to="/clientes" class="nav-link click-scroll">Clientes</RouterLink>
-            </li>
-            
-            <li class="nav-item">
-              <RouterLink to="/pedidos" class="nav-link click-scroll">Pedidos</RouterLink>
-            </li>
-
-            <li class="nav-item">
-              <RouterLink to="/detalle-pedido" class="nav-link click-scroll">Detalle Pedido</RouterLink>
-            </li>
-
-
-
-
-
-            
-            <li><a class="color_animation" href="#detalle-pedido">DETALLE PEDIDO</a></li>
-            <li><a class="color_animation" href="#empleado">EMPLEADO</a></li>
-            <li>
-              <a class="color_animation product-btn" href="#producto" @click="toggleSelect">PRODUCTO</a>
-              <div v-if="showSelect">
-                <select class="form-control" aria-label="Seleccione una opción" style="width: 100%">
-                  <option value="categoria_producto">Categoría Producto</option>
-                  <option value="producto_ingrediente">Producto Ingrediente</option>
-                </select>
-              </div>
-            </li>
-            <li class="nav-item">
-              <RouterLink to="/clientes" class="nav-link click-scroll">Clientes</RouterLink>
-            </li>
-            <li><a class="color_animation" href="#promocion">PROMOCION</a></li>
-            <li><a class="color_animation" href="#usuario">USUARIO</a></li>
-            <li><a class="color_animation" href="#login">INICIAR SESION</a></li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
       </div>
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
+    </nav>
+  </header>
 </template>
 
 <style scoped>
-.navbar-brand {
-  font-size: 4rem;
-  font-family: 'Pacifico', cursive;
-  color: white !important;
+/* General navbar styling */
+.navbar {
+  background-color: #333;
+  padding: 10px 0;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-nav li {
+  list-style: none;
+}
+
+.navbar-nav a {
+  display: inline-block;
+  padding: 10px 15px;
+  color: #fff;
   text-decoration: none;
-  padding: 0;
-  margin: 0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-nav a:hover {
+  background-color: #444;
+  color: #ff6347;
+}
+
+select.form-control {
+  width: auto;
+  margin-top: 10px;
+  padding: 5px;
 }
 </style>

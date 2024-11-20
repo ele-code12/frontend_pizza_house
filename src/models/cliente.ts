@@ -1,6 +1,6 @@
 export interface Cliente {
   id: number
-  razon_social: string
+  razonSocial: string
   nit: string
   fecha_eliminacion: Date
 }
