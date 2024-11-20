@@ -41,7 +41,17 @@ const router = createRouter({
       path: '/menu',
       name: 'menu',
       component: () => import('../views/MenuView.vue')
-    }
+    },
+    
+    {
+      path: '/detalles_pedido',
+      name: 'detalles_pedido',
+      component:() => import('../views/DetallepedidoView.vue')
+    },
+
+    {
+      
+    }    
   ]
 })
 
