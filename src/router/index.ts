@@ -50,8 +50,10 @@ const router = createRouter({
     },
 
     {
-      
-    }    
+      path: '/productos',
+      name: 'productos',
+      component:() => import('../views/ProductoView.vue')
+    }
   ]
 })
 
