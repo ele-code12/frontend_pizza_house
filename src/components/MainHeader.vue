@@ -34,6 +34,28 @@ function toggleSelect() {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav main-nav clear navbar-right">
             <li><a class="navactive color_animation" href="#top">INICIO</a></li>
+            
+            <li class="nav-item">
+              <RouterLink to="/productos" class="nav-link click-scroll">Productos</RouterLink>
+            </li>
+
+            <li class="nav-item">
+              <RouterLink to="/clientes" class="nav-link click-scroll">Clientes</RouterLink>
+            </li>
+            
+            <li class="nav-item">
+              <RouterLink to="/pedidos" class="nav-link click-scroll">Pedidos</RouterLink>
+            </li>
+
+            <li class="nav-item">
+              <RouterLink to="/detalle-pedido" class="nav-link click-scroll">Detalle Pedido</RouterLink>
+            </li>
+
+
+
+
+
+            
             <li><a class="color_animation" href="#detalle-pedido">DETALLE PEDIDO</a></li>
             <li><a class="color_animation" href="#empleado">EMPLEADO</a></li>
             <li>
