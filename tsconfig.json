@@ -1,14 +1,18 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
+  "compilerOptions": {
+    "baseUrl": "src", 
+    "paths": {
+      "@/*": ["*"]
     },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "module": "ESNext",             
+    "target": "ESNext",             
+    "moduleResolution": "node",     
+    "jsx": "preserve"               
+  },
+  "include": [
+    "src/**/*"
   ]
 }

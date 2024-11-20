@@ -1,15 +1,21 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import type { Cliente } from '@/models/cliente'
-import { onMounted, ref } from 'vue'
 import http from '@/plugins/axios'
-import router from '@/router'
+import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
-  ENDPOINT_API: string
+  ENDPOINT_API: 'clientes'
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''
-var clientes = ref<Cliente[]>([])
+const router = useRouter()
+
+const clientes = ref<Cliente[]>([])
+const clienteDelete = ref<Cliente | null>(null)
+const mostrarConfirmDialog = ref<boolean>(false)
 
 async function getClientes() {
   clientes.value = await http.get(ENDPOINT).then((response) => response.data)
@@ -19,10 +25,17 @@ function toEdit(id: number) {
   router.push(`/clientes/editar/${id}`)
 }
 
-async function toDelete(id: number) {
-  var r = confirm('¿Está seguro que se desea eliminar el Cliente?')
-  if (r == true) {
-    await http.delete(`${ENDPOINT}/${id}`).then(() => getClientes())
+function mostrarEliminarConfirm(cliente: Cliente) {
+  clienteDelete.value = cliente
+  mostrarConfirmDialog.value = true
+}
+
+async function toDelete() {
+  if (clienteDelete.value) {
+    await http.delete(`${ENDPOINT}/${clienteDelete.value.id}`).then(() => {
+      getClientes()
+      mostrarConfirmDialog.value = false
+    })
   }
 }
 
@@ -33,19 +46,12 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><RouterLink to="/">Inicio</RouterLink></li>
-        <li class="breadcrumb-item active" aria-current="page">Clientes</li>
-      </ol>
-    </nav>
-
     <div class="row">
       <h2>Lista de Clientes</h2>
       <div class="col-12">
-        <RouterLink to="/clientes/crear"
-          ><font-awesome-icon icon="fa-solid fa-plus" /> Crear Nuevo</RouterLink
-        >
+        <RouterLink to="/clientes/crear">
+          <Button label="Crear Nuevo" icon="pi pi-plus" class="p-button-success" />
+        </RouterLink>
       </div>
     </div>
 
@@ -53,31 +59,61 @@ onMounted(() => {
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Razon Social</th>
-            <th scope="col">NIT</th>
+            <th>N°</th>
+            <th>Razón Social</th>
+            <th>NIT</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(cliente, index) in clientes.values()" :key="cliente.id">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.razon_social }}</td>
+          <tr v-for="(cliente, index) in clientes" :key="cliente.id">
+            <td>{{ index + 1 }}</td>
+            <td>{{ cliente.razonSocial }}</td>
             <td>{{ cliente.nit }}</td>
-            <td>{{ cliente.fecha_eliminacion }}</td>
             <td>
-              <button class="btn btn-link" @click="toEdit(cliente.id)">
-                <font-awesome-icon icon="fa-solid fa-edit" />
-              </button>
-              <button class="btn btn-link" @click="toDelete(cliente.id)">
-                <font-awesome-icon icon="fa-solid fa-trash" />
-              </button>
+              <Button
+                icon="pi pi-pencil"
+                aria-label="Editar"
+                text
+                @click="toEdit(cliente.id)"
+              />
+              <Button
+                icon="pi pi-trash"
+                aria-label="Eliminar"
+                text
+                @click="mostrarEliminarConfirm(cliente)"
+              />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <Dialog
+      v-model:visible="mostrarConfirmDialog"
+      header="Confirmar Eliminación"
+      :style="{ width: '25rem' }"
+    >
+      <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+      <div class="flex justify-end gap-2">
+        <Button
+          type="button"
+          label="Cancelar"
+          severity="secondary"
+          @click="mostrarConfirmDialog = false"
+        />
+        <Button type="button" label="Eliminar" @click="toDelete" />
+      </div>
+    </Dialog>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+.table-responsive {
+  margin-top: 20px;
+}
+</style>

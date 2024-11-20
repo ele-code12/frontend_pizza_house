@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import http from '@/plugins/axios'
 
 const props = defineProps<{
-  ENDPOINT_API: string
+  ENDPOINT_API: 'usuarios'
 }>()
 
 const ENDPOINT = props.ENDPOINT_API ?? ''

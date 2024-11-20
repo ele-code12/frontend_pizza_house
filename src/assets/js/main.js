@@ -16,7 +16,7 @@ function initializeNavigation() {
     event.preventDefault();
     const targetId = this.hash;
 
-    if (!targetId) return; // Si no hay hash, salir
+    if (!targetId || targetId === "#") return; // Si no hay hash o es solo un "#", salir
 
     const $target = $(targetId);
     if ($target.length) {
@@ -66,20 +66,22 @@ function setActiveNavLink($link) {
 }
 
 function initializeMixItUp() {
-  if ($.fn.mixitup) {
+  // Verificar si MixItUp está cargado y si el elemento #portfolio está presente en el DOM
+  if ($.fn.mixitup && $('#portfolio').length) {
     $('#portfolio').mixitup({
       targetSelector: '.item',
       transitionSpeed: 350,
     });
   } else {
-    console.warn('MixItUp no está cargado.');
+    console.warn('MixItUp no está cargado o el elemento #portfolio no está presente.');
   }
 }
 
 function initializeDatepicker() {
-  if ($.fn.datepicker) {
+  // Verificar si el Datepicker está cargado y si el elemento #datepicker está presente
+  if ($.fn.datepicker && $('#datepicker').length) {
     $('#datepicker').datepicker();
   } else {
-    console.warn('Datepicker no está cargado.');
+    console.warn('Datepicker no está cargado o el elemento #datepicker no está presente.');
   }
 }
