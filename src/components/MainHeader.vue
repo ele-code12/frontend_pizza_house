@@ -3,7 +3,6 @@ import { ref } from 'vue';
 
 const showSelect = ref(false);
 
-// Alternar la visibilidad del select al hacer clic en Productos
 function toggleSelect() {
   showSelect.value = !showSelect.value;
 }
@@ -11,7 +10,6 @@ function toggleSelect() {
 
 <template>
   <header>
-    <!-- Navigation bar -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="row">
@@ -29,8 +27,7 @@ function toggleSelect() {
             </button>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav main-nav clear navbar-right">
-              <!-- Updated items -->
+            <ul class="nav navbar-nav main-nav clear navbar-left">
               <li>
                 <RouterLink to="/" class="navactive color_animation">INICIO</RouterLink>
               </li>
@@ -43,15 +40,21 @@ function toggleSelect() {
               <li>
                 <RouterLink to="/detalle-pedido" class="navactive color_animation">DETALLE PEDIDO</RouterLink>
               </li>
-              <li>
-                <a @click.prevent="toggleSelect" class="navactive color_animation" href="#">
+              <li class="dropdown">
+                <RouterLink
+                  to="/productos"
+                  class="navactive color_animation"
+                  @click.prevent="toggleSelect"
+                >
                   PRODUCTOS
-                </a>
-                <div v-if="showSelect">
-                  <select class="form-control" aria-label="Seleccione una opción">
-                    <option value="categoria_producto">Categoría Producto</option>
-                    <option value="producto_ingrediente">Producto Ingrediente</option>
-                  </select>
+                </RouterLink>
+                <div v-if="showSelect" class="dropdown-menu">
+                  <RouterLink to="/categoria-producto" class="dropdown-item">
+                    CATEGORIA PRODUCTO
+                  </RouterLink>
+                  <RouterLink to="/producto-ingrediente" class="dropdown-item">
+                    PRODUCTO INGREDIENTE
+                  </RouterLink>
                 </div>
               </li>
               <li>
@@ -72,17 +75,21 @@ function toggleSelect() {
 </template>
 
 <style scoped>
-/* General navbar styling */
 .navbar {
   background-color: #333;
-  padding: 10px 0;
+  padding: 15px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .navbar-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
 }
 
 .navbar-nav li {
@@ -91,7 +98,7 @@ function toggleSelect() {
 
 .navbar-nav a {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 12px 20px;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -103,9 +110,31 @@ function toggleSelect() {
   color: #ff6347;
 }
 
-select.form-control {
-  width: auto;
-  margin-top: 10px;
-  padding: 5px;
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #333;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 5px 0;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #444;
+  color: #ff6347;
 }
 </style>
