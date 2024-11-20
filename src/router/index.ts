@@ -47,8 +47,12 @@ const router = createRouter({
       name: 'detalles-pedido',
       component: () => import('../views/DetallepedidoView.vue')
     },
-    
-  
+    {
+      path: '/productos',
+      name: 'productos',
+      component:() => import('../views/ProductoView.vue')
+    }
+
   ]
 })
 

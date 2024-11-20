@@ -65,11 +65,11 @@ async function handleSave() {
     >
       <div class="flex flex-col gap-4">
         <div>
-          <label for="idCliente" class="font-semibold">ID Cliente</label>
+          <label for="idCliente" class="font-semibold">Cliente</label>
           <InputText id="idCliente" v-model="pedido.idCliente" class="w-full" autocomplete="off" />
         </div>
         <div>
-          <label for="idEmpleado" class="font-semibold">ID Empleado</label>
+          <label for="idEmpleado" class="font-semibold">Empleado</label>
           <InputText id="idEmpleado" v-model="pedido.idEmpleado" class="w-full" autocomplete="off" />
         </div>
         <div>
@@ -85,7 +85,7 @@ async function handleSave() {
           <InputText id="total" v-model="pedido.total" type="number" class="w-full" autocomplete="off" />
         </div>
         <div>
-          <label for="idPromocion" class="font-semibold">ID Promoción</label>
+          <label for="idPromocion" class="font-semibold">Promoción</label>
           <InputText id="idPromocion" v-model="pedido.idPromocion" class="w-full" autocomplete="off" />
         </div>
         <div>
