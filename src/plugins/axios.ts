@@ -1,17 +1,8 @@
-import Axios, { type AxiosInstance } from 'axios'
-import { useAuthStore } from '@/stores/index'
+import Axios from 'axios'
 
-const axios: AxiosInstance = Axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL_ENDPOINT
-})
-
-axios.interceptors.request.use((config) => {
-  const authStore = useAuthStore()
-  if (config.headers) {
-    config.headers['Content-type'] = 'application/json'
-    config.headers['Authorization'] = 'Bearer ' + authStore.token
-  }
-  return config
+const axios = Axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL_ENDPOINT,
+  headers: { 'Content-Type': 'application/json' },
 })
 
 export default axios

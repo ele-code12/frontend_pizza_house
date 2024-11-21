@@ -1,6 +1,6 @@
 <template>
-  <div class="promociones">
-    <h1>PROMOCIONES PIZZA HOUSE</h1>
+  <div class="about">
+    <h1>This is an about page</h1>
   </div>
 </template>
 

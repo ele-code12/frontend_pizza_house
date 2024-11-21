@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import type { Producto } from '@/models/producto'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import { onMounted, ref } from 'vue'
 
 const ENDPOINT = 'productos'
 let productos = ref<Producto[]>([])
@@ -11,141 +11,107 @@ const emit = defineEmits(['edit'])
 const productoDelete = ref<Producto | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
 
-async function obtenerListaProductos() {
-  try {
-    productos.value = await http.get(ENDPOINT).then((response) => response.data)
-  } catch (error) {
-    console.error('Error al obtener los productos:', error)
-  }
+async function obtenerLista() {
+  productos.value = await http.get(ENDPOINT).then((response) => response.data)
 }
 
 function emitirEdicion(producto: Producto) {
   emit('edit', producto)
 }
 
+
 function mostrarEliminarConfirm(producto: Producto) {
   productoDelete.value = producto
   mostrarConfirmDialog.value = true
 }
 
-async function eliminarProducto() {
-  if (productoDelete.value?.id) {
-    await http.delete(`${ENDPOINT}/${productoDelete.value?.id}`)
-    obtenerListaProductos()
-    mostrarConfirmDialog.value = false
-  }
+async function eliminar() {
+  await http.delete(`${ENDPOINT}/${productoDelete.value?.id}`)
+  obtenerLista()
+  mostrarConfirmDialog.value = false
 }
 
 onMounted(() => {
-  obtenerListaProductos()
+  obtenerLista()
 })
+defineExpose({ obtenerLista })
+
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
 </script>
 
 <template>
-  <div class="container">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Disponibilidad</th>
-            <th>Tamaño</th>
-            <th>Categoría</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(producto, index) in productos" :key="producto.id">
-            <td>{{ index + 1 }}</td>
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.precio }}</td>
-            <td>{{ producto.disponibilidad }}</td>
-            <td>{{ producto.tamanio }}</td>
-            <td>{{ producto.categoriaProducto.nombre }}</td>
-            <td>
-              <Button
-                icon="pi pi-pencil"
-                aria-label="Editar"
-                text
-                @click="emitirEdicion(producto)"
-                class="btn-editar"
-              />
-              <Button
-                icon="pi pi-trash"
-                aria-label="Eliminar"
-                text
-                @click="mostrarEliminarConfirm(producto)"
-                class="btn-eliminar"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nro.</th>
+          <th>Categoria</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio Unitario</th>
+          <th>Stock</th>
+          <th>Fecha de Registro</th>
+          <th>Fecha de Modificacion</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(producto, index) in productos" :key="producto.id">
+          <td>{{ index + 1 }}</td>
+          <td>{{ producto.categoria.nombre }}</td>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.precioUnitario }}</td>
+          <td>{{ producto.stock }}</td>
+          <td>{{ formatDate(producto. fechaCreacion) }}</td>
+          <td>{{formatDate(producto. fechaModificacion)  }}</td>
+
+
+
+          <td>
+            <Button
+              icon="pi pi-pencil"
+              aria-label="Editar"
+              text
+              @click="emitirEdicion(producto)"
+            />
+            <Button
+              icon="pi pi-trash"
+              aria-label="Eliminar"
+              text
+              @click="mostrarEliminarConfirm(producto)"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <Dialog
       v-model:visible="mostrarConfirmDialog"
       header="Confirmar Eliminación"
       :style="{ width: '25rem' }"
     >
-      <p class="texto-eliminar">
-        ¿Estás seguro de que deseas eliminar este producto?
-      </p>
+      <p>¿Estás seguro de que deseas eliminar este registro?</p>
       <div class="flex justify-end gap-2">
         <Button
           type="button"
           label="Cancelar"
+          severity="secondary"
           @click="mostrarConfirmDialog = false"
-          class="btn-cancelar"
         />
-        <Button type="button" label="Eliminar" @click="eliminarProducto" />
+        <Button type="button" label="Eliminar" @click="eliminar" />
       </div>
     </Dialog>
   </div>
 </template>
 
-<style scoped>
-.btn-editar {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  transition: background-color 0.3s;
-}
-
-.btn-editar:hover {
-  background-color: #0056b3;
-}
-
-.btn-eliminar {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  transition: background-color 0.3s;
-}
-
-.btn-eliminar:hover {
-  background-color: #c82333;
-}
-
-.texto-eliminar {
-  color: black;
-}
-
-.btn-cancelar {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-
-.btn-cancelar:hover {
-  background-color: #ff0019;
-}
-</style>
+<style scoped></style>

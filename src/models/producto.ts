@@ -1,11 +1,22 @@
-import type { CategoriaProducto } from './categoriaProducto'
+import type { Categoria } from "./categoria"
+
 
 export interface Producto {
-  id: number
-  nombre: string
-  precio: number
-  disponibilidad: number
-  tamanio: string
-  fechaEliminacion: Date
-  categoriaProducto: CategoriaProducto
+  id: number;
+
+  nombre: string;
+
+  descripcion: string;
+
+  precioUnitario:number;
+
+  stock: number;
+
+  fechaCreacion: Date;
+
+  fechaModificacion:Date
+
+  categoria: Categoria
+
+
 }

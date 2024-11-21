@@ -1,11 +1,11 @@
+import type { Cliente } from "./cliente"
+import type { Empleado } from "./empleado"
+
 export interface Pedido {
   id: number
-  idCliente: number  
-  idEmpleado: number
-  fecha: Date
-  estado: number
-  total: number
-  idPromocion: number 
-  direccionEntrega: string
-  fechaEliminacion: Date
+  metodoPago: string
+  estado: string
+  empleado: Empleado
+  cliente: Cliente
+
 }

@@ -1,10 +1,12 @@
-export interface Empleado {
-  id: number
-  nombres: string
-  email: string
-  fecha_eliminacion: Date
-  cargo: string
-  telefono: string
-  salario: number
-  fecha_nacimiento: Date
+import type { Usuario } from "./usuario";
+
+export interface Empleado{
+  id: number;
+  nombres: string;
+  apellidos: string;
+  cargo: string;
+  salario: number;
+  fechaContratacion: Date;
+  fechaCreacion: Date;
+  usuario: Usuario
 }

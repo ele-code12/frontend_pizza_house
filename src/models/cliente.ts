@@ -1,6 +1,15 @@
-export interface Cliente {
-  id: number
-  razonSocial: string
-  nit: number
-  fecha_eliminacion: Date
+export interface Cliente{
+
+
+  id:number;
+
+  nombres:string;
+
+  apellidos:string;
+
+  direccion:string;
+
+  celular:string;
+
+  fechaCreacion: Date;
 }

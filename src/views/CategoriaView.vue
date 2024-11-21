@@ -1,42 +1,41 @@
 <script setup lang="ts">
-import ClienteList from '@/components/cliente/Cliente.List.vue';
-import ClienteSave from '@/components/cliente/Cliente.Save.vue';
+import CategoriaList from '@/components/categoria/CategoriaList.vue'
+import CategoriaSave from '@/components/categoria/CategoriaSave.vue'
 import Button from 'primevue/button'
 import { ref } from 'vue'
 
 const mostrarDialog = ref<boolean>(false)
-const clienteListRef = ref<typeof ClienteList | null>(null)
-const clienteEdit = ref<any>(null)
+const categoriaListRef = ref<typeof CategoriaList | null>(null)
+const categoriaEdit = ref<any>(null)
 
 function hableCreate() {
-  clienteEdit.value = null  
+  categoriaEdit.value = null
   mostrarDialog.value = true
 }
 
-function handleEdit(cliente: any) {
-  clienteEdit.value = { ...cliente } 
+function handleEdit(categoria: any) {
+  categoriaEdit.value = categoria
   mostrarDialog.value = true
 }
 
 function handleCloseDialog() {
-  clienteEdit.value = null  
   mostrarDialog.value = false
 }
 
 function handleGuardar() {
-  clienteListRef.value?.obtenerLista()  
+  categoriaListRef.value?.obtenerLista()
 }
 </script>
 
 <template>
   <div class="m-8">
-    <h1>Clientes</h1>
+    <h1>Categorias</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
-    <ClienteList ref="clienteListRef" @edit="handleEdit" />
-    <ClienteSave
+    <CategoriaList ref="categoriaListRef" @edit="handleEdit" />
+    <CategoriaSave
       :mostrar="mostrarDialog"
-      :cliente="clienteEdit"
-      :modoEdicion="!!clienteEdit"
+      :categoria="categoriaEdit"
+      :modoEdicion="!!categoriaEdit"
       @guardar="handleGuardar"
       @close="handleCloseDialog"
     />
