@@ -39,7 +39,7 @@ async function handleSave() {
       idEmpleado: pedido.value.idEmpleado,
       fecha: pedido.value.fecha,
       estado: pedido.value.estado,
-      total: Number(pedido.value.total), // Convertir total a número antes de enviar
+      total: Number(pedido.value.total), 
       idPromocion: pedido.value.idPromocion,
       direccionEntrega: pedido.value.direccionEntrega,
     }

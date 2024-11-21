@@ -94,23 +94,26 @@ onMounted(() => {
       header="Confirmar Eliminación"
       :style="{ width: '25rem' }"
     >
-      <p class="texto-eliminar">
-        ¿Estás seguro de que deseas eliminar este pedido?
-      </p>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          @click="mostrarConfirmDialog = false"
-          class="btn-cancelar"
-        />
-        <Button type="button" label="Eliminar" @click="eliminarPedido" />
+      <div class="dialog-content">
+        <p class="texto-eliminar">
+          ¿Estás seguro de que deseas eliminar este pedido?
+        </p>
+        <div class="flex justify-end gap-2">
+          <Button
+            type="button"
+            label="Cancelar"
+            @click="mostrarConfirmDialog = false"
+            class="btn-cancelar"
+          />
+          <Button type="button" label="Eliminar" @click="eliminarPedido" />
+        </div>
       </div>
     </Dialog>
   </div>
 </template>
 
 <style scoped>
+/* Estilo para los botones */
 .btn-editar {
   background-color: #007bff;
   color: white;
@@ -137,10 +140,12 @@ onMounted(() => {
   background-color: #c82333;
 }
 
+/* Estilo para el texto de eliminación */
 .texto-eliminar {
   color: black;
 }
 
+/* Estilo para el botón cancelar */
 .btn-cancelar {
   background-color: #dc3545;
   color: white;
@@ -151,5 +156,17 @@ onMounted(() => {
 
 .btn-cancelar:hover {
   background-color: #ff0019;
+}
+
+/* Estilo para el contenido del dialogo (hace que los elementos estén alineados verticalmente) */
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espaciado entre los elementos */
+}
+
+/* Ajuste de margen para los botones */
+.flex {
+  margin-top: 10px;
 }
 </style>
