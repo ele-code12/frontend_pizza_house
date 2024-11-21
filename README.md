@@ -1,4 +1,4 @@
-# frontend_hamburgueseria
+# frontend_Pizzeria_house
 
 This template should help get you started developing with Vue 3 in Vite.
 
