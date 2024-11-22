@@ -1,60 +1,64 @@
 <script setup lang="ts">
-import type { Cliente } from '@/models/cliente'
-import type { Producto } from '@/models/producto'
-import type { Empleado } from '@/models/empleado'
-import http from '@/plugins/axios'
-import Button from 'primevue/button'
-import Dialog from 'primevue/dialog'
-import InputNumber from 'primevue/inputnumber'
-import Select from 'primevue/select'
-import { computed, ref, watch } from 'vue'
-import type { Venta } from '@/models/venta'
+import type { Cliente } from '@/models/cliente';
+import type { Producto } from '@/models/producto';
+import type { Empleado } from '@/models/empleado';
+import http from '@/plugins/axios';
+import Button from 'primevue/button';
+import Dialog from 'primevue/dialog';
+import InputNumber from 'primevue/inputnumber';
+import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
+import { computed, ref, watch } from 'vue';
+import type { Venta } from '@/models/venta';
 
-const ENDPOINT = 'ventas'
+const ENDPOINT = 'ventas';
 
 const props = defineProps({
   mostrar: Boolean,
   venta: {
     type: Object as () => Venta,
-    default: () => ({}) as Venta
+    default: () => ({}) as Venta,
   },
-  modoEdicion: Boolean
-})
+  modoEdicion: Boolean,
+});
 
-const emit = defineEmits(['guardar', 'close', 'eliminar'])
+const emit = defineEmits(['guardar', 'close', 'eliminar']);
 
-const venta = ref<Venta>({ ...props.venta })
-const clientes = ref<Cliente[]>([])
-const productos = ref<Producto[]>([])
-const empleados = ref<Empleado[]>([])
+const venta = ref<Venta>({
+  ...props.venta,
+  productos: [],
+});
+const clientes = ref<Cliente[]>([]);
+const productos = ref<Producto[]>([]);
+const empleados = ref<Empleado[]>([]);
 
 watch(
   () => props.venta,
   (newVal) => {
-    venta.value = { ...newVal }
+    venta.value = { ...newVal };
   },
   { immediate: true }
-)
+);
 
 const dialogVisible = computed({
   get: () => props.mostrar,
   set: (value) => {
-    if (!value) emit('close')
-  }
-})
+    if (!value) emit('close');
+  },
+});
 
 async function obtenerDatos() {
   try {
-    const clientesResponse = await http.get('clientes')
-    clientes.value = clientesResponse.data
+    const clientesResponse = await http.get('clientes');
+    clientes.value = clientesResponse.data;
 
-    const productosResponse = await http.get('productos')
-    productos.value = productosResponse.data
+    const productosResponse = await http.get('productos');
+    productos.value = productosResponse.data;
 
-    const empleadosResponse = await http.get('empleados')
-    empleados.value = empleadosResponse.data
+    const empleadosResponse = await http.get('empleados');
+    empleados.value = empleadosResponse.data;
   } catch (error) {
-    console.error('Error al cargar los datos:', error)
+    console.error('Error al cargar los datos:', error);
   }
 }
 
@@ -66,48 +70,54 @@ async function handleSave() {
       totalVenta: venta.value.totalVenta,
       fechaCreacion: venta.value.fechaCreacion,
       idCliente: venta.value.cliente?.id,
-      idProducto: venta.value.producto?.id,
-      idEmpleado: venta.value.empleado?.id
-    }
+      idProductos: venta.value.productos.map(producto => producto.id),
+      idEmpleado: venta.value.empleado?.id,
+    };
 
     if (props.modoEdicion) {
-      await http.patch(`${ENDPOINT}/${venta.value.id}`, body)
+      await http.patch(`${ENDPOINT}/${venta.value.id}`, body);
     } else {
-      await http.post(ENDPOINT, body)
+      await http.post(ENDPOINT, body);
     }
 
-    emit('guardar')
-    venta.value = {} as Venta
-    dialogVisible.value = false
-    
-    await obtenerDatos()
+    emit('guardar');
+    venta.value = {} as Venta;
+    dialogVisible.value = false;
+
+    await obtenerDatos();
   } catch (error: any) {
-    alert(error?.response?.data?.message || 'Error al guardar la venta')
+    alert(error?.response?.data?.message || 'Error al guardar la venta');
   }
 }
 
 async function handleDelete() {
   try {
-    await http.delete(`${ENDPOINT}/${venta.value.id}`)
-    emit('eliminar')
-    dialogVisible.value = false
+    await http.delete(`${ENDPOINT}/${venta.value.id}`);
+    emit('eliminar');
+    dialogVisible.value = false;
   } catch (error: any) {
-    alert(error?.response?.data?.message || 'Error al eliminar la venta')
+    alert(error?.response?.data?.message || 'Error al eliminar la venta');
   }
 }
 
 watch(
   () => props.mostrar,
   (nuevoValor) => {
-    if (nuevoValor) obtenerDatos()
+    if (nuevoValor) obtenerDatos();
   }
-)
+);
+
+watch(
+  () => [venta.value.cantidad, venta.value.precioUnitario],
+  ([nuevaCantidad, nuevoPrecioUnitario]) => {
+    venta.value.totalVenta = (nuevaCantidad || 0) * (nuevoPrecioUnitario || 0);
+  }
+);
 </script>
 
 <template>
   <div class="card flex justify-center">
     <Dialog v-model:visible="dialogVisible" :header="props.modoEdicion ? 'Editar Venta' : 'Crear Venta'" style="width: 25rem">
-      
       <!-- Cliente -->
       <div class="flex items-center gap-4 mb-4">
         <label for="cliente" class="font-semibold w-4">Cliente</label>
@@ -121,16 +131,17 @@ watch(
         />
       </div>
 
-      <!-- Producto -->
+      <!-- Productos -->
       <div class="flex items-center gap-4 mb-4">
-        <label for="producto" class="font-semibold w-4">Producto</label>
-        <Select
+        <label for="producto" class="font-semibold w-4">Productos</label>
+        <MultiSelect
           id="producto"
-          v-model="venta.producto"
+          v-model="venta.productos"
           :options="productos"
           optionLabel="nombre"
           class="flex-auto"
-          placeholder="Seleccione un producto"
+          placeholder="Seleccione productos"
+          display="chip"
         />
       </div>
 
