@@ -6,8 +6,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name : 'home',
+      component : HomeView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/about',
@@ -24,19 +29,16 @@ const router = createRouter({
       name: 'categoria',
       component: () => import('../views/CategoriaView.vue'),
     },
-
     {
       path: '/cliente',
       name: 'cliente',
       component: () => import('../views/ClienteView.vue'),
     },
-
     {
       path: '/empleado',
       name: 'empleado',
       component: () => import('../views/EmpleadoView.vue'),
     },
-
     {
       path: '/venta',
       name: 'venta',
@@ -47,7 +49,6 @@ const router = createRouter({
       name: 'ventaDetalle',
       component: () => import('../views/VentasDetallesView.vue'),
     },
-
   ],
 })
 

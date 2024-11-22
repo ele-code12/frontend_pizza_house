@@ -7,7 +7,6 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import InputNumber from 'primevue/inputnumber';
 import Select from 'primevue/select';
-import MultiSelect from 'primevue/multiselect';
 import { computed, ref, watch } from 'vue';
 import type { Venta } from '@/models/venta';
 
@@ -26,7 +25,7 @@ const emit = defineEmits(['guardar', 'close', 'eliminar']);
 
 const venta = ref<Venta>({
   ...props.venta,
-  productos: [],
+  producto: null,
 });
 const clientes = ref<Cliente[]>([]);
 const productos = ref<Producto[]>([]);
@@ -70,7 +69,7 @@ async function handleSave() {
       totalVenta: venta.value.totalVenta,
       fechaCreacion: venta.value.fechaCreacion,
       idCliente: venta.value.cliente?.id,
-      idProductos: venta.value.productos.map(producto => producto.id),
+      idProducto: venta.value.producto?.id,
       idEmpleado: venta.value.empleado?.id,
     };
 
@@ -131,17 +130,16 @@ watch(
         />
       </div>
 
-      <!-- Productos -->
+      <!-- Producto -->
       <div class="flex items-center gap-4 mb-4">
-        <label for="producto" class="font-semibold w-4">Productos</label>
-        <MultiSelect
+        <label for="producto" class="font-semibold w-4">Producto</label>
+        <Select
           id="producto"
-          v-model="venta.productos"
+          v-model="venta.producto"
           :options="productos"
           optionLabel="nombre"
           class="flex-auto"
-          placeholder="Seleccione productos"
-          display="chip"
+          placeholder="Seleccione un producto"
         />
       </div>
 
