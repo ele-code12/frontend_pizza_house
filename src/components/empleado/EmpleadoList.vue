@@ -19,7 +19,6 @@ function emitirEdicion(empleado: Empleado) {
   emit('edit', empleado)
 }
 
-
 function mostrarEliminarConfirm(empleado: Empleado) {
   empleadoDelete.value = empleado
   mostrarConfirmDialog.value = true
@@ -36,25 +35,20 @@ onMounted(() => {
 })
 defineExpose({ obtenerLista })
 
-
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son de 0 a 11
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
-
-
 </script>
-
 <template>
   <div>
     <table>
       <thead>
         <tr>
           <th>Nro.</th>
-          <th>Usuario</th>
           <th>Nombres</th>
           <th>Apellidos</th>
           <th>Cargo</th>
@@ -67,15 +61,12 @@ function formatDate(dateString: string): string {
       <tbody>
         <tr v-for="(empleado, index) in empleados" :key="empleado.id">
           <td>{{ index + 1 }}</td>
-          <td>{{ empleado.usuario.nombre }}</td>
           <td>{{ empleado.nombres }}</td>
           <td>{{ empleado.apellidos }}</td>
           <td>{{ empleado.cargo }}</td>
           <td>{{ empleado.salario }}</td>
-          <td>{{ formatDate(empleado. fechaContratacion) }}</td>
-          <td>{{formatDate(empleado. fechaCreacion)  }}</td>
-
-
+          <td>{{ formatDate(empleado.fechaContratacion) }}</td>
+          <td>{{ formatDate(empleado.fechaCreacion) }}</td>
 
           <td>
             <Button

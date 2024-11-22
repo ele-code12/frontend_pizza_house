@@ -7,6 +7,7 @@ import InputText from 'primevue/inputtext'
 import { computed, ref, watch } from 'vue'
 
 const ENDPOINT = 'categorias'
+
 const props = defineProps({
   mostrar: Boolean,
   categoria: {
@@ -25,6 +26,8 @@ const dialogVisible = computed({
 })
 
 const categoria = ref<Categoria>({ ...props.categoria })
+const categoriasExistentes = ref<Categoria[]>([])
+
 watch(
   () => props.categoria,
   (newVal) => {
@@ -32,11 +35,27 @@ watch(
   }
 )
 
+async function obtenerCategorias() {
+  try {
+    const response = await http.get(ENDPOINT)
+    categoriasExistentes.value = response.data
+  } catch (error) {
+    console.error('Error al obtener categorías:', error)
+  }
+}
+
 async function handleSave() {
+  const nombreDuplicado = categoriasExistentes.value.some(c => c.nombre.toLowerCase() === categoria.value.nombre.toLowerCase());
+  if (nombreDuplicado) {
+    alert('El nombre de la categoría ya existe. Por favor, elija otro nombre.');
+    return;
+  }
+
   try {
     const body = {
       nombre: categoria.value.nombre,
     }
+
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${categoria.value.id}`, body)
     } else {
@@ -49,6 +68,10 @@ async function handleSave() {
     alert(error?.response?.data?.message)
   }
 }
+
+watch(() => props.mostrar, (nuevoValor) => {
+  if (nuevoValor) obtenerCategorias() 
+})
 </script>
 
 <template>

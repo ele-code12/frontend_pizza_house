@@ -1,12 +1,11 @@
 import type { Producto } from "./producto";
 import type { Venta } from "./venta";
 
-export interface ventaDetalle {
-
-  id:number;
-  cantidad:string;
-  subtotal:string;
+export interface VentaDetalle {
+  id: number;
+  cantidad: number;
+  subtotal: number;
   fechaCreacion: Date;
-  venta:Venta;
-  producto:Producto;
+  venta: Venta;
+  producto: Producto;
 }

@@ -24,6 +24,7 @@ const emit = defineEmits(['guardar', 'close', 'eliminar'])
 
 const producto = ref<Producto>({ ...props.producto })
 const categorias = ref<Categoria[]>([])
+const productosExistentes = ref<Producto[]>([])
 
 watch(
   () => props.producto,
@@ -49,11 +50,26 @@ async function obtenerCategorias() {
   }
 }
 
+async function obtenerProductos() {
+  try {
+    const response = await http.get(ENDPOINT)
+    productosExistentes.value = response.data
+  } catch (error) {
+    console.error('Error al cargar productos:', error)
+  }
+}
+
 async function handleSave() {
+  const nombreDuplicado = productosExistentes.value.some(p => p.nombre.toLowerCase() === producto.value.nombre.toLowerCase());
+  if (nombreDuplicado) {
+    alert('El nombre del producto ya existe. Por favor, elija otro nombre.');
+    return;
+  }
+
   try {
     const body = {
       idCategoria: producto.value.categoria?.id,
-      nombre:producto.value.nombre,
+      nombre: producto.value.nombre,
       descripcion: producto.value.descripcion,
       precioUnitario: producto.value.precioUnitario,
       stock: producto.value.stock,
@@ -89,14 +105,17 @@ async function updateStock(categoriaId: number, cantidad: number) {
   try {
     await http.patch(`categorias/${categoriaId}/stock`, { cantidad });
   } catch (error) {
-    console.error('Error al actualizar el stock:', error);
+    console.error('Error al actualizar el stock:', error)
   }
 }
 
 watch(
   () => props.mostrar,
   (nuevoValor) => {
-    if (nuevoValor) obtenerCategorias()
+    if (nuevoValor) {
+      obtenerCategorias()
+      obtenerProductos() 
+    }
   }
 )
 </script>

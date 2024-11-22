@@ -17,11 +17,10 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Inicio</RouterLink>
         <RouterLink to="/producto">Productos</RouterLink>
         <RouterLink to="/categoria">Categoria</RouterLink>
         <RouterLink to="/cliente">Cliente</RouterLink>
-        <RouterLink to="/usuario">Usuario</RouterLink>
         <RouterLink to="/empleado">Empleado</RouterLink>
         <RouterLink to="/venta">Ventas</RouterLink>
         <RouterLink to="/ventaDetalle">Detalle de Ventas</RouterLink>
