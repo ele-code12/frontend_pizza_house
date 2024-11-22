@@ -4,7 +4,6 @@ import type { Producto } from '@/models/producto'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
 import Calendar from 'primevue/calendar'
 import Select from 'primevue/select'
@@ -151,7 +150,7 @@ watch(
           id="venta"
           v-model="detalle.venta"
           :options="ventas"
-          optionLabel="codigo"
+          optionLabel="codigos"
           class="flex-auto"
           placeholder="Seleccione una venta"
         />
