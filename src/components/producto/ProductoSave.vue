@@ -17,7 +17,7 @@ const props = defineProps({
     type: Object as () => Producto,
     default: () => ({}) as Producto
   },
-  modoEdicion: Boolean 
+  modoEdicion: Boolean
 })
 
 const emit = defineEmits(['guardar', 'close', 'eliminar'])
@@ -37,13 +37,13 @@ watch(
 const dialogVisible = computed({
   get: () => props.mostrar,
   set: (value) => {
-    if (!value) emit('close') 
+    if (!value) emit('close')
   }
 })
 
 async function obtenerCategorias() {
   try {
-    const response = await http.get('categorias') 
+    const response = await http.get('categorias')
     categorias.value = response.data
   } catch (error) {
     console.error('Error al cargar categorías:', error)
@@ -60,6 +60,11 @@ async function obtenerProductos() {
 }
 
 async function handleSave() {
+  if (!producto.value.categoria || !producto.value.nombre || !producto.value.descripcion || producto.value.precioUnitario === undefined || producto.value.stock === undefined) {
+    alert('Todos los campos son obligatorios. Por favor, complete todos los campos.');
+    return;
+  }
+
   const nombreDuplicado = productosExistentes.value.some(p => p.nombre.toLowerCase() === producto.value.nombre.toLowerCase());
   if (nombreDuplicado) {
     alert('El nombre del producto ya existe. Por favor, elija otro nombre.');
@@ -114,7 +119,7 @@ watch(
   (nuevoValor) => {
     if (nuevoValor) {
       obtenerCategorias()
-      obtenerProductos() 
+      obtenerProductos()
     }
   }
 )

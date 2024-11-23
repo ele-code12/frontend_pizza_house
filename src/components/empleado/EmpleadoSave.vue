@@ -39,6 +39,31 @@ const dialogVisible = computed({
 })
 
 async function handleSave() {
+  if (!empleado.value.nombres || empleado.value.nombres.trim() === '') {
+    alert('El campo "Nombres" no puede estar vacío.');
+    return;
+  }
+
+  if (!empleado.value.apellidos || empleado.value.apellidos.trim() === '') {
+    alert('El campo "Apellidos" no puede estar vacío.');
+    return;
+  }
+
+  if (!empleado.value.cargo || empleado.value.cargo.trim() === '') {
+    alert('El campo "Cargo" no puede estar vacío.');
+    return;
+  }
+
+  if (empleado.value.salario === undefined || empleado.value.salario <= 0) {
+    alert('El campo "Salario" debe ser mayor que cero.');
+    return;
+  }
+
+  if (!empleado.value.fechaContratacion) {
+    alert('El campo "Fecha de Contratación" no puede estar vacío.');
+    return;
+  }
+
   try {
     const body = {
       nombres: empleado.value.nombres,
@@ -61,6 +86,7 @@ async function handleSave() {
     alert(error?.response?.data?.message || 'Error al guardar el empleado')
   }
 }
+
 </script>
 
 <template>

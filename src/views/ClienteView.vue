@@ -9,28 +9,27 @@ const clienteListRef = ref<typeof ClienteList | null>(null)
 const clienteEdit = ref<any>(null)
 
 function hableCreate() {
-  clienteEdit.value = null  
+  clienteEdit.value = null
   mostrarDialog.value = true
 }
 
 function handleEdit(cliente: any) {
-  clienteEdit.value = { ...cliente } 
+  clienteEdit.value = { ...cliente }
   mostrarDialog.value = true
 }
 
 function handleCloseDialog() {
-  clienteEdit.value = null  
+  clienteEdit.value = null
   mostrarDialog.value = false
 }
 
 function handleGuardar() {
-  clienteListRef.value?.obtenerLista()  
+  clienteListRef.value?.obtenerLista()
 }
 </script>
 
 <template>
   <div class="m-8">
-    <h1>Clientes</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
     <ClienteList ref="clienteListRef" @edit="handleEdit" />
     <ClienteSave

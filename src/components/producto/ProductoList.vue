@@ -19,7 +19,6 @@ function emitirEdicion(producto: Producto) {
   emit('edit', producto)
 }
 
-
 function mostrarEliminarConfirm(producto: Producto) {
   productoDelete.value = producto
   mostrarConfirmDialog.value = true
@@ -36,82 +35,104 @@ onMounted(() => {
 })
 defineExpose({ obtenerLista })
 
-
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
-
-
 </script>
 
 <template>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Nro.</th>
-          <th>Categoria</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Precio Unitario</th>
-          <th>Stock</th>
-          <th>Fecha de Registro</th>
-          <th>Fecha de Modificacion</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(producto, index) in productos" :key="producto.id">
-          <td>{{ index + 1 }}</td>
-          <td>{{ producto.categoria.nombre }}</td>
-          <td>{{ producto.nombre }}</td>
-          <td>{{ producto.descripcion }}</td>
-          <td>{{ producto.precioUnitario }}</td>
-          <td>{{ producto.stock }}</td>
-          <td>{{ formatDate(producto. fechaCreacion) }}</td>
-          <td>{{formatDate(producto. fechaModificacion)  }}</td>
-
-
-
-          <td>
-            <Button
-              icon="pi pi-pencil"
-              aria-label="Editar"
-              text
-              @click="emitirEdicion(producto)"
-            />
-            <Button
-              icon="pi pi-trash"
-              aria-label="Eliminar"
-              text
-              @click="mostrarEliminarConfirm(producto)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <Dialog
-      v-model:visible="mostrarConfirmDialog"
-      header="Confirmar Eliminación"
-      :style="{ width: '25rem' }"
+  <div class="productos-grid">
+    <div
+      v-for="(producto, index) in productos"
+      :key="producto.id"
+      class="producto-card"
     >
-      <p>¿Estás seguro de que deseas eliminar este registro?</p>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          severity="secondary"
-          @click="mostrarConfirmDialog = false"
-        />
-        <Button type="button" label="Eliminar" @click="eliminar" />
+      <div class="producto-header">
+        <h3>{{ producto.nombre }}</h3>
+        <p class="text-white"><strong>Categoría:</strong> {{ producto.categoria.nombre }}</p>
       </div>
-    </Dialog>
+      <div class="producto-body">
+        <p class="text-white"><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+        <p class="text-white"><strong>Precio:</strong> {{ producto.precioUnitario }} Bs</p>
+        <p class="text-white"><strong>Stock:</strong> {{ producto.stock }}</p>
+      </div>
+      <div class="producto-footer">
+        <p class="text-white"><strong>Fecha Registro:</strong> {{ formatDate(producto.fechaCreacion) }}</p>
+        <p class="text-white"><strong>Fecha Modificación:</strong> {{ formatDate(producto.fechaModificacion) }}</p>
+      </div>
+      <div class="producto-actions">
+        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(producto)" />
+        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(producto)" />
+      </div>
+    </div>
   </div>
+
+  <Dialog
+    v-model:visible="mostrarConfirmDialog"
+    header="Confirmar Eliminación"
+    :style="{ width: '25rem' }"
+  >
+    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+    <div class="flex justify-end gap-2">
+      <Button
+        type="button"
+        label="Cancelar"
+        severity="secondary"
+        @click="mostrarConfirmDialog = false"
+      />
+      <Button type="button" label="Eliminar" @click="eliminar" />
+    </div>
+  </Dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.producto-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.producto-header h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.producto-body p {
+  margin: 4px 0;
+}
+
+.producto-footer {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.producto-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.producto-actions .p-button {
+  margin: 0 4px;
+}
+
+.text-white {
+  color: white !important;
+}
+</style>

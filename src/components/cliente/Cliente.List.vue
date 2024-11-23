@@ -45,62 +45,88 @@ function formatDate(dateString: string): string {
 </script>
 
 <template>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Nro.</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Direccion</th>
-          <th>Celular</th>
-          <th>Fecha de Registro</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(cliente, index) in clientes" :key="cliente.id">
-          <td>{{ index + 1 }}</td>
-          <td>{{ cliente.nombres }}</td>
-          <td>{{ cliente.apellidos }}</td>
-          <td>{{ cliente.direccion }}</td>
-          <td>{{ cliente.celular }}</td>
-          <td>{{ formatDate(cliente.fechaCreacion) }}</td>
-          <td>
-            <Button
-              icon="pi pi-pencil"
-              aria-label="Editar"
-              text
-              @click="emitirEdicion(cliente)"
-            />
-            <Button
-              icon="pi pi-trash"
-              aria-label="Eliminar"
-              text
-              @click="mostrarEliminarConfirm(cliente)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <Dialog
-      v-model:visible="mostrarConfirmDialog"
-      header="Confirmar Eliminación"
-      :style="{ width: '25rem' }"
+  <div class="clientes-grid">
+    <div
+      v-for="(cliente, index) in clientes"
+      :key="cliente.id"
+      class="cliente-card"
     >
-      <p>¿Estás seguro de que deseas eliminar este registro?</p>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          severity="secondary"
-          @click="mostrarConfirmDialog = false"
-        />
-        <Button type="button" label="Eliminar" @click="eliminar" />
+      <div class="cliente-header">
+        <h3>{{ cliente.nombres }} {{ cliente.apellidos }}</h3>
+        <p>{{ cliente.direccion }}</p>
       </div>
-    </Dialog>
+      <div class="cliente-body">
+        <p><strong>Celular:</strong> {{ cliente.celular }}</p>
+        <p><strong>Fecha de Registro:</strong> {{ formatDate(cliente.fechaCreacion) }}</p>
+      </div>
+      <div class="cliente-actions">
+        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(cliente)" />
+        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(cliente)" />
+      </div>
+    </div>
   </div>
+
+  <Dialog
+    v-model:visible="mostrarConfirmDialog"
+    header="Confirmar Eliminación"
+    :style="{ width: '25rem' }"
+  >
+    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+    <div class="flex justify-end gap-2">
+      <Button
+        type="button"
+        label="Cancelar"
+        severity="secondary"
+        @click="mostrarConfirmDialog = false"
+      />
+      <Button type="button" label="Eliminar" @click="eliminar" />
+    </div>
+  </Dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.clientes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.cliente-card {
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cliente-header h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.cliente-header p {
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.cliente-body p {
+  margin: 4px 0;
+  color: white;
+}
+
+.cliente-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cliente-actions .p-button {
+  margin: 0 4px;
+}
+</style>

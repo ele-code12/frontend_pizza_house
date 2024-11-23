@@ -45,6 +45,11 @@ async function obtenerCategorias() {
 }
 
 async function handleSave() {
+  if (!categoria.value.nombre || categoria.value.nombre.trim() === '') {
+    alert('El nombre de la categoría no puede estar vacío.');
+    return;
+  }
+
   const nombreDuplicado = categoriasExistentes.value.some(c => c.nombre.toLowerCase() === categoria.value.nombre.toLowerCase());
   if (nombreDuplicado) {
     alert('El nombre de la categoría ya existe. Por favor, elija otro nombre.');
@@ -65,9 +70,10 @@ async function handleSave() {
     categoria.value = {} as Categoria
     dialogVisible.value = false
   } catch (error: any) {
-    alert(error?.response?.data?.message)
+    alert(error?.response?.data?.message || 'Error al guardar la categoría');
   }
 }
+
 
 watch(() => props.mostrar, (nuevoValor) => {
   if (nuevoValor) obtenerCategorias() 

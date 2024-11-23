@@ -29,7 +29,6 @@ function handleGuardar() {
 
 <template>
   <div class="m-8">
-    <h1>Ventas</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
     <VentaList ref="ventaListRef" @edit="handleEdit" />
     <VentaSave

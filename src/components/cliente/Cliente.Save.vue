@@ -33,6 +33,26 @@ watch(
 )
 
 async function handleSave() {
+  if (!cliente.value.nombres || cliente.value.nombres.trim() === '') {
+    alert('El campo "Nombres" no puede estar vacío.');
+    return;
+  }
+  
+  if (!cliente.value.apellidos || cliente.value.apellidos.trim() === '') {
+    alert('El campo "Apellidos" no puede estar vacío.');
+    return;
+  }
+
+  if (!cliente.value.direccion || cliente.value.direccion.trim() === '') {
+    alert('El campo "Dirección" no puede estar vacío.');
+    return;
+  }
+
+  if (!cliente.value.celular || cliente.value.celular.trim() === '') {
+    alert('El campo "Celular" no puede estar vacío.');
+    return;
+  }
+
   try {
     const body = {
       nombres: cliente.value.nombres,
@@ -49,9 +69,10 @@ async function handleSave() {
     cliente.value = {} as Cliente // Reiniciar cliente tras guardar
     dialogVisible.value = false
   } catch (error: any) {
-    alert(error?.response?.data?.message)
+    alert(error?.response?.data?.message || 'Error al guardar el cliente');
   }
 }
+
 </script>
 
 <template>

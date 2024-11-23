@@ -29,7 +29,6 @@ function handleGuardar() {
 
 <template>
   <div class="m-8">
-    <h1>Categorias</h1>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="hableCreate" />
     <CategoriaList ref="categoriaListRef" @edit="handleEdit" />
     <CategoriaSave

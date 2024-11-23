@@ -43,66 +43,91 @@ function formatDate(dateString: string): string {
   return `${year}-${month}-${day}`
 }
 </script>
+
 <template>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Nro.</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Cargo</th>
-          <th>Salario</th>
-          <th>Fecha de Contrato</th>
-          <th>Fecha de Registro</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(empleado, index) in empleados" :key="empleado.id">
-          <td>{{ index + 1 }}</td>
-          <td>{{ empleado.nombres }}</td>
-          <td>{{ empleado.apellidos }}</td>
-          <td>{{ empleado.cargo }}</td>
-          <td>{{ empleado.salario }}</td>
-          <td>{{ formatDate(empleado.fechaContratacion) }}</td>
-          <td>{{ formatDate(empleado.fechaCreacion) }}</td>
-
-          <td>
-            <Button
-              icon="pi pi-pencil"
-              aria-label="Editar"
-              text
-              @click="emitirEdicion(empleado)"
-            />
-            <Button
-              icon="pi pi-trash"
-              aria-label="Eliminar"
-              text
-              @click="mostrarEliminarConfirm(empleado)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <Dialog
-      v-model:visible="mostrarConfirmDialog"
-      header="Confirmar Eliminación"
-      :style="{ width: '25rem' }"
+  <div class="empleados-grid">
+    <div
+      v-for="(empleado, index) in empleados"
+      :key="empleado.id"
+      class="empleado-card"
     >
-      <p>¿Estás seguro de que deseas eliminar este registro?</p>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          severity="secondary"
-          @click="mostrarConfirmDialog = false"
-        />
-        <Button type="button" label="Eliminar" @click="eliminar" />
+      <div class="empleado-header">
+        <h3>{{ empleado.nombres }} {{ empleado.apellidos }}</h3>
+        <p>{{ empleado.cargo }}</p>
       </div>
-    </Dialog>
+      <div class="empleado-body">
+        <p><strong>Salario:</strong> {{ empleado.salario | currency }}</p>
+        <p><strong>Fecha de Contrato:</strong> {{ formatDate(empleado.fechaContratacion) }}</p>
+        <p><strong>Fecha de Registro:</strong> {{ formatDate(empleado.fechaCreacion) }}</p>
+      </div>
+      <div class="empleado-actions">
+        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(empleado)" />
+        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(empleado)" />
+      </div>
+    </div>
   </div>
+
+  <Dialog
+    v-model:visible="mostrarConfirmDialog"
+    header="Confirmar Eliminación"
+    :style="{ width: '25rem' }"
+  >
+    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+    <div class="flex justify-end gap-2">
+      <Button
+        type="button"
+        label="Cancelar"
+        severity="secondary"
+        @click="mostrarConfirmDialog = false"
+      />
+      <Button type="button" label="Eliminar" @click="eliminar" />
+    </div>
+  </Dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.empleados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.empleado-card {
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.empleado-header h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.empleado-header p {
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.empleado-body p {
+  margin: 4px 0;
+  color: white;
+}
+
+.empleado-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.empleado-actions .p-button {
+  margin: 0 4px;
+}
+</style>

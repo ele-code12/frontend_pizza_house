@@ -62,6 +62,10 @@ async function obtenerDatos() {
 }
 
 async function handleSave() {
+  if (!venta.value.cliente || !venta.value.producto || !venta.value.cantidad || !venta.value.precioUnitario || !venta.value.empleado) {
+    alert('Por favor, complete todos los campos.');
+  }
+
   try {
     const body = {
       cantidad: venta.value.cantidad,
@@ -88,6 +92,7 @@ async function handleSave() {
     alert(error?.response?.data?.message || 'Error al guardar la venta');
   }
 }
+
 
 async function handleDelete() {
   try {

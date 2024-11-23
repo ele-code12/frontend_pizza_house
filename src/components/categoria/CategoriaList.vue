@@ -37,54 +37,71 @@ defineExpose({ obtenerLista })
 </script>
 
 <template>
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Nro.</th>
-          <th>Nombre</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(categoria, index) in categorias" :key="categoria.id">
-          <td>{{ index + 1 }}</td>
-          <td>{{ categoria.nombre }}</td>
-          <td>
-            <Button
-              icon="pi pi-pencil"
-              aria-label="Editar"
-              text
-              @click="emitirEdicion(categoria)"
-            />
-            <Button
-              icon="pi pi-trash"
-              aria-label="Eliminar"
-              text
-              @click="mostrarEliminarConfirm(categoria)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <Dialog
-      v-model:visible="mostrarConfirmDialog"
-      header="Confirmar Eliminación"
-      :style="{ width: '25rem' }"
+  <div class="categorias-grid">
+    <div
+      v-for="(categoria, index) in categorias"
+      :key="categoria.id"
+      class="categoria-card"
     >
-      <p>¿Estás seguro de que deseas eliminar este registro?</p>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancelar"
-          severity="secondary"
-          @click="mostrarConfirmDialog = false"
-        />
-        <Button type="button" label="Eliminar" @click="eliminar" />
+      <div class="categoria-header">
+        <h3>{{ categoria.nombre }}</h3>
       </div>
-    </Dialog>
+      <div class="categoria-actions">
+        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(categoria)" />
+        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(categoria)" />
+      </div>
+    </div>
   </div>
+
+  <Dialog
+    v-model:visible="mostrarConfirmDialog"
+    header="Confirmar Eliminación"
+    :style="{ width: '25rem' }"
+  >
+    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+    <div class="flex justify-end gap-2">
+      <Button
+        type="button"
+        label="Cancelar"
+        severity="secondary"
+        @click="mostrarConfirmDialog = false"
+      />
+      <Button type="button" label="Eliminar" @click="eliminar" />
+    </div>
+  </Dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.categorias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cuadrícula responsiva */
+  gap: 16px;
+  padding: 20px;
+}
+
+.categoria-card {
+  background-color: #2f2f2f;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.categoria-header h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.categoria-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.categoria-actions .p-button {
+  margin: 0 4px;
+}
+</style>
