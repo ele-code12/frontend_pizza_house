@@ -11,7 +11,7 @@ const props = defineProps({
   mostrar: Boolean,
   cliente: {
     type: Object as () => Cliente,
-    default: () => ({} as Cliente)
+    default: () => ({}) as Cliente
   },
   modoEdicion: Boolean
 })
@@ -34,23 +34,23 @@ watch(
 
 async function handleSave() {
   if (!cliente.value.nombres || cliente.value.nombres.trim() === '') {
-    alert('El campo "Nombres" no puede estar vacío.');
-    return;
+    alert('El campo "Nombres" no puede estar vacío.')
+    return
   }
-  
+
   if (!cliente.value.apellidos || cliente.value.apellidos.trim() === '') {
-    alert('El campo "Apellidos" no puede estar vacío.');
-    return;
+    alert('El campo "Apellidos" no puede estar vacío.')
+    return
   }
 
   if (!cliente.value.direccion || cliente.value.direccion.trim() === '') {
-    alert('El campo "Dirección" no puede estar vacío.');
-    return;
+    alert('El campo "Dirección" no puede estar vacío.')
+    return
   }
 
   if (!cliente.value.celular || cliente.value.celular.trim() === '') {
-    alert('El campo "Celular" no puede estar vacío.');
-    return;
+    alert('El campo "Celular" no puede estar vacío.')
+    return
   }
 
   try {
@@ -69,10 +69,9 @@ async function handleSave() {
     cliente.value = {} as Cliente // Reiniciar cliente tras guardar
     dialogVisible.value = false
   } catch (error: any) {
-    alert(error?.response?.data?.message || 'Error al guardar el cliente');
+    alert(error?.response?.data?.message || 'Error al guardar el cliente')
   }
 }
-
 </script>
 
 <template>
@@ -117,12 +116,7 @@ async function handleSave() {
 
       <div class="flex items-center gap-4 mb-4">
         <label for="celular" class="font-semibold w-4">Celular</label>
-        <InputText
-          id="celular"
-          v-model="cliente.celular"
-          class="flex-auto"
-          autocomplete="off"
-        />
+        <InputText id="celular" v-model="cliente.celular" class="flex-auto" autocomplete="off" />
       </div>
 
       <div class="flex justify-end gap-2">
@@ -130,13 +124,20 @@ async function handleSave() {
           type="button"
           label="Cancelar"
           icon="pi pi-times"
-          severity="secondary"
+          class="cancel-button"
           @click="dialogVisible = false"
         />
+
         <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave" />
       </div>
     </Dialog>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.cancel-button {
+  background-color: red !important;
+  border-color: red !important;
+  color: white !important;
+}
+</style>

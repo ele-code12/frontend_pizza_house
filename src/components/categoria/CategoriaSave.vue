@@ -46,19 +46,21 @@ async function obtenerCategorias() {
 
 async function handleSave() {
   if (!categoria.value.nombre || categoria.value.nombre.trim() === '') {
-    alert('El nombre de la categoría no puede estar vacío.');
-    return;
+    alert('El nombre de la categoría no puede estar vacío.')
+    return
   }
 
-  const nombreDuplicado = categoriasExistentes.value.some(c => c.nombre.toLowerCase() === categoria.value.nombre.toLowerCase());
+  const nombreDuplicado = categoriasExistentes.value.some(
+    (c) => c.nombre.toLowerCase() === categoria.value.nombre.toLowerCase()
+  )
   if (nombreDuplicado) {
-    alert('El nombre de la categoría ya existe. Por favor, elija otro nombre.');
-    return;
+    alert('El nombre de la categoría ya existe. Por favor, elija otro nombre.')
+    return
   }
 
   try {
     const body = {
-      nombre: categoria.value.nombre,
+      nombre: categoria.value.nombre
     }
 
     if (props.modoEdicion) {
@@ -70,14 +72,16 @@ async function handleSave() {
     categoria.value = {} as Categoria
     dialogVisible.value = false
   } catch (error: any) {
-    alert(error?.response?.data?.message || 'Error al guardar la categoría');
+    alert(error?.response?.data?.message || 'Error al guardar la categoría')
   }
 }
 
-
-watch(() => props.mostrar, (nuevoValor) => {
-  if (nuevoValor) obtenerCategorias() 
-})
+watch(
+  () => props.mostrar,
+  (nuevoValor) => {
+    if (nuevoValor) obtenerCategorias()
+  }
+)
 </script>
 
 <template>
@@ -103,13 +107,27 @@ watch(() => props.mostrar, (nuevoValor) => {
           type="button"
           label="Cancelar"
           icon="pi pi-times"
-          severity="secondary"
+          class="cancel-button"
           @click="dialogVisible = false"
-        ></Button>
+        />
+
         <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave"></Button>
       </div>
     </Dialog>
   </div>
 </template>
+<style scoped>
+.cancel-button {
+  background-color: red !important;
+  border-color: red !important;
+  color: white !important;
+}
 
-<style scoped></style>
+.cancel-button:hover,
+.cancel-button:focus,
+.cancel-button:active {
+  background-color: red !important;
+  border-color: red !important;
+  color: white !important;
+}
+</style>

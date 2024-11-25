@@ -43,7 +43,7 @@ export default {
     return {
       username: '',
       password: '',
-      correctUsername: 'Mauricio',
+      correctUsername: 'MauricioBejarano',
       correctPassword: '12345',
       passwordVisible: false,
     };

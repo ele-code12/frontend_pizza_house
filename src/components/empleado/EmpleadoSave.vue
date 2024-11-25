@@ -5,7 +5,7 @@ import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
-import Calendar from 'primevue/calendar' 
+import Calendar from 'primevue/calendar'
 import { computed, ref, watch } from 'vue'
 
 const ENDPOINT = 'empleados'
@@ -16,7 +16,7 @@ const props = defineProps({
     type: Object as () => Empleado,
     default: () => ({}) as Empleado
   },
-  modoEdicion: Boolean 
+  modoEdicion: Boolean
 })
 
 const emit = defineEmits(['guardar', 'close', 'eliminar'])
@@ -34,7 +34,7 @@ watch(
 const dialogVisible = computed({
   get: () => props.mostrar,
   set: (value) => {
-    if (!value) emit('close') 
+    if (!value) emit('close')
   }
 })
 
@@ -79,9 +79,9 @@ async function handleSave() {
       await http.post(ENDPOINT, body)
     }
 
-    emit('guardar') 
-    empleado.value = {} as Empleado 
-    dialogVisible.value = false 
+    emit('guardar')
+    empleado.value = {} as Empleado
+    dialogVisible.value = false
   } catch (error: any) {
     alert(error?.response?.data?.message || 'Error al guardar el empleado')
   }
@@ -143,7 +143,7 @@ async function handleSave() {
 
       <!-- Botones de acción -->
       <div class="flex justify-end gap-2">
-        <Button type="button" label="Cancelar" icon="pi pi-times" severity="secondary" @click="dialogVisible = false"></Button>
+        <Button type="button" label="Cancelar" icon="pi pi-times" severity="danger" @click="dialogVisible = false"/>
         <Button type="button" label="Guardar" icon="pi pi-save" @click="handleSave"></Button>
         <Button v-if="props.modoEdicion" type="button" label="Eliminar" icon="pi pi-trash" severity="danger" @click="handleDelete"></Button>
       </div>
@@ -151,4 +151,12 @@ async function handleSave() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.custom-cancel-button {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+}
+
+
+</style>
