@@ -189,4 +189,8 @@ watch(
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.dialog-header .p-dialog-title {
+  color: white;
+}
+</style>

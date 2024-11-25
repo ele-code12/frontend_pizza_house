@@ -1,5 +1,5 @@
 <template>
-<!--   <div class="login-container">
+  <div class="login-container">
     <form @submit.prevent="handleLogin" class="login-form">
       <h2>Iniciar sesión</h2>
 
@@ -16,18 +16,25 @@
 
       <div class="input-group">
         <label for="password">Contraseña</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          placeholder="Ingresa tu contraseña"
-          required
-        />
+        <div class="password-container">
+          <input
+            :type="passwordVisible ? 'text' : 'password'"
+            id="password"
+            v-model="password"
+            placeholder="Ingresa tu contraseña"
+            required
+          />
+          <i
+            class="pi"
+            :class="passwordVisible ? 'pi-eye-slash' : 'pi-eye'"
+            @click="togglePasswordVisibility"
+          ></i>
+        </div>
       </div>
 
       <button type="submit" class="login-button">Iniciar sesión</button>
     </form>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -36,8 +43,9 @@ export default {
     return {
       username: '',
       password: '',
-      correctUsername: 'Mauricio', 
+      correctUsername: 'Mauricio',
       correctPassword: '12345',
+      passwordVisible: false,
     };
   },
   methods: {
@@ -50,6 +58,9 @@ export default {
         alert('Usuario o contraseña incorrectos');
       }
     },
+    togglePasswordVisibility() {
+      this.passwordVisible = !this.passwordVisible;
+    }
   },
 };
 </script>
@@ -57,11 +68,11 @@ export default {
 <style scoped>
 .login-container {
   max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 150px auto 0;
+  padding: 30px;
+  background-color: #fff5e6;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .login-form {
@@ -69,28 +80,67 @@ export default {
   flex-direction: column;
 }
 
+h2 {
+  color: #000000;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+label {
+  color: #000000;
+  font-size: 16px;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
+  border: 2px solid #ff5733;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff4500;
+  box-shadow: 0 0 5px rgba(255, 69, 0, 0.6);
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #ff5733;
 }
 
 button {
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px;
+  background-color: #ff5733;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #ff4500;
+}
+
+button:active {
+  background-color: #e03c00;
 }
 </style>
