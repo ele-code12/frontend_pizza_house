@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="content">
     <section class="descripcion">
@@ -11,8 +9,8 @@
             En Pizza House nos especializamos en ofrecer las mejores pizzas,
             hechas con los ingredientes más frescos y de alta calidad. Nuestra
             misión es brindar una experiencia única en cada bocado, desde nuestras
-            pizzas clásicas hasta las más innovadoras, para satisfacer todos los gustos. 
-            Nos esforzamos por ofrecer un menú que se adapte a todas las preferencias y necesidades dietéticas, 
+            pizzas clásicas hasta las más innovadoras, para satisfacer todos los gustos.
+            Nos esforzamos por ofrecer un menú que se adapte a todas las preferencias y necesidades dietéticas,
             garantizando que cada pizza sea una obra maestra deliciosa y que cada cliente se sienta como en casa.
           </p>
         </div>
@@ -60,22 +58,122 @@
     </section>
 
     <section class="categorias">
-      <h2 class="section-title">Categorías</h2>
-      <div class="category-list">
+      <h2 class="section-title">Explorar Nuestras Categorías</h2>
+      <div class="horizontal-categories">
+        <div class="horizontal-category" @click="mostrarOfertas = !mostrarOfertas">
+          <h3>Pizzas</h3>
+        </div>
+        <div class="horizontal-category" @click="mostrarBebidas = !mostrarBebidas">
+          <h3>Bebidas</h3>
+        </div>
+        <div class="horizontal-category" @click="mostrarPollo = !mostrarPollo">
+          <h3>Pollo</h3>
+        </div>
+        <div class="horizontal-category" @click="mostrarCervezas = !mostrarCervezas">
+          <h3>Cervezas</h3>
+        </div>
+        <div class="horizontal-category" @click="mostrarPostres = !mostrarPostres">
+          <h3>Postres</h3>
+        </div>
+      </div>
+<!-- Mostrar las categorías de ofertas de Pizzas -->
+<div v-if="mostrarOfertas" class="category-list">
+  <div class="category-item">
+    <img src="/img/pizzaCategoria1.jpg" alt="Categoria 1" class="category-image" />
+    <h3 class="category-name">Pizzas Deliciosas</h3>
+    <h3 class="category-name">115 Bs</h3>
+    <!-- Botón con icono de carrito de PrimeIcons -->
+    <button class="add-to-cart-btn">
+      <i class="pi pi-cart-plus"></i> Agregar al carrito
+    </button>
+  </div>
+  <div class="category-item">
+    <img src="/img/pizzaCategoria2.jpg" alt="Categoria 2" class="category-image" />
+    <h3 class="category-name">Pizzas Especiales</h3>
+    <h3 class="category-name">75 Bs</h3>
+    <!-- Botón con icono de carrito de PrimeIcons -->
+    <button class="add-to-cart-btn">
+      <i class="pi pi-cart-plus"></i> Agregar al carrito
+    </button>
+  </div>
+  <div class="category-item">
+    <img src="/img/pizzaCategoria3.jpeg" alt="Categoria 3" class="category-image" />
+    <h3 class="category-name">Pizzas Vegetarianas</h3>
+    <h3 class="category-name">100 Bs</h3>
+    <!-- Botón con icono de carrito de PrimeIcons -->
+    <button class="add-to-cart-btn">
+      <i class="pi pi-cart-plus"></i> Agregar al carrito
+    </button>
+  </div>
+</div>
+
+
+
+      <!-- Mostrar las categorías de ofertas de Bebidas -->
+      <div v-if="mostrarBebidas" class="category-list">
         <div class="category-item">
           <img src="/img/pizza.jpeg" alt="Categoria 1" class="category-image" />
-          <h3 class="category-name">Pizzas Clásicas</h3>
         </div>
         <div class="category-item">
           <img src="/img/pizza.jpeg" alt="Categoria 2" class="category-image" />
-          <h3 class="category-name">Pizzas Especiales</h3>
+          <h3 class="category-name">Bebidas Gasosas</h3>
         </div>
         <div class="category-item">
           <img src="/img/pizza.jpeg" alt="Categoria 3" class="category-image" />
-          <h3 class="category-name">Pizzas Vegetarianas</h3>
+          <h3 class="category-name">Jugos Naturales</h3>
         </div>
       </div>
     </section>
+
+
+     <!-- Mostrar las categorías de ofertas de mostrarPollo -->
+     <div v-if="mostrarPollo" class="category-list">
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 1" class="category-image" />
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 2" class="category-image" />
+          <h3 class="category-name">Bebidas Gasosas</h3>
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 3" class="category-image" />
+          <h3 class="category-name">Jugos Naturales</h3>
+        </div>
+      </div>
+
+      <!-- Mostrar las categorías de ofertas de mostrarCervezas -->
+     <div v-if="mostrarCervezas" class="category-list">
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 1" class="category-image" />
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 2" class="category-image" />
+          <h3 class="category-name">Bebidas Gasosas</h3>
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 3" class="category-image" />
+          <h3 class="category-name">Jugos Naturales</h3>
+        </div>
+      </div>
+
+
+        <!-- Mostrar las categorías de ofertas de  mostrarPostres -->
+     <div v-if=" mostrarPostres" class="category-list">
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 1" class="category-image" />
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 2" class="category-image" />
+          <h3 class="category-name">Bebidas Gasosas</h3>
+        </div>
+        <div class="category-item">
+          <img src="/img/pizza.jpeg" alt="Categoria 3" class="category-image" />
+          <h3 class="category-name">Jugos Naturales</h3>
+        </div>
+      </div>
+
+
+
 
     <section class="ventas">
       <h2 class="section-title">Ofertas de Venta</h2>
@@ -97,9 +195,61 @@
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      mostrarOfertas: false,  
+      mostrarBebidas: false,  
+      mostrarPollo: false,    
+      mostrarCervezas: false, 
+      mostrarPostres: false,  
+    };
+  },
+};
+
+</script>
+
 <style scoped>
+  .category-item {
+    margin-bottom: 20px;
+  }
+
+  .category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  text-align: center; 
+  padding: 20px; 
+}
+
+.add-to-cart-btn {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  border-radius: 5px; 
+  margin-top: 10px;
+  width: 150px; 
+}
+
+.add-to-cart-btn i {
+  margin-right: 8px; 
+}
+  .add-to-cart-btn:hover {
+    background-color: darkgreen;
+  }
 .content {
   padding: 20px;
+}
+.categorias .section-title {
+  color: white;
 }
 
 .section-title {
@@ -111,7 +261,7 @@
 }
 
 .productos .section-title {
-  color: white; /* Cambia el color a blanco */
+  color: white;
 }
 
 .descripcion-container {
@@ -122,9 +272,9 @@
 }
 
 .descripcion-image {
-  width: 40%; 
+  width: 40%;
   border-radius: 10px;
-  margin-bottom: 80px; 
+  margin-bottom: 80px;
 }
 
 .descripcion-text {
@@ -143,7 +293,6 @@
   line-height: 1.6;
 }
 
-/* Estilo de la nueva sección debajo de los productos */
 .descripcion-bajo-container {
   display: flex;
   align-items: center;
@@ -187,34 +336,74 @@
   width: 300px;
   text-align: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out; /* Transición para animación */
+  transition: transform 0.3s ease-in-out; 
 }
 
 .product-item img, .category-item img, .sale-item img {
   width: 100%;
   border-radius: 10px;
-  transition: transform 0.3s ease-in-out; /* Transición para animación de imagen */
-}
-
-.product-item:hover, .category-item:hover, .sale-item:hover {
-  transform: scale(1.10); /* Agranda la imagen un 5% */
 }
 
 .product-name, .category-name, .sale-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-top: 10px;
-  color: #444;
+  color: black;
+}
+
+.product-price, .sale-price {
+  font-size: 1.5rem;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #2ecc71;
 }
 
 .product-description, .sale-description {
   font-size: 1rem;
-  color: #666;
-  margin: 10px 0;
+  margin-top: 5px;
 }
 
-.product-price, .sale-price {
-  font-size: 1.2rem;
-  color: #e74c3c;
+.product-item:hover, .category-item:hover, .sale-item:hover {
+  transform: translateY(-10px); 
+}
+
+.horizontal-categories {
+  display: flex;
+  justify-content: space-between; 
+  margin-top: 20px;
+  gap: 30px;
+}
+
+.horizontal-category {
+  background-color: #F7A634; 
+  padding: 10px 20px; 
+  border-radius: 8px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  font-size: 18px;
   font-weight: bold;
 }
+
+.horizontal-category:hover {
+  background-color: #474141; 
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.category-item {
+  text-align: center;
+}
+
+.category-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
 </style>
+

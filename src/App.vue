@@ -8,6 +8,9 @@ import '@/assets/js/jquery-1.10.2.js'
 import '@/assets/js/jquery.mixitup.min.js'
 import '@/assets/js/main.js'
 
+// Importar PrimeIcons CSS
+import 'primeicons/primeicons.css'
+
 import MainHeader from '@/components/MainHeader.vue'
 import MainFooter from '@/components/MainFooter.vue'
 </script>
