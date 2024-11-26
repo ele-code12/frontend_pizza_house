@@ -10,6 +10,8 @@ let ventas = ref<Venta[]>([])
 const emit = defineEmits(['edit'])
 const ventaDelete = ref<Venta | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
+const ventaDetallesDialogVisible = ref<boolean>(false)
+const ventaDetalles = ref<Venta | null>(null)
 
 async function obtenerLista() {
   ventas.value = await http.get(ENDPOINT).then((response) => response.data)
@@ -30,6 +32,11 @@ async function eliminar() {
   mostrarConfirmDialog.value = false
 }
 
+function mostrarDetalles(venta: Venta) {
+  ventaDetalles.value = venta
+  ventaDetallesDialogVisible.value = true
+}
+
 onMounted(() => {
   obtenerLista()
 })
@@ -40,7 +47,7 @@ function formatDate(dateString: string): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
 </script>
 
@@ -52,7 +59,7 @@ function formatDate(dateString: string): string {
         <p>{{ venta.producto.nombre }}</p>
       </div>
       <div class="venta-body">
-        <p><strong>Empleado:</strong> {{ venta.empleado.nombres }}</p>
+        <p><strong>Usuario:</strong> {{ venta.empleado.nombres }}</p>
         <p><strong>Cantidad:</strong> {{ venta.cantidad }}</p>
         <p><strong>Precio Unitario:</strong> {{ venta.precioUnitario | currency }}</p>
         <p><strong>Total Venta:</strong> {{ venta.totalVenta | currency }}</p>
@@ -60,10 +67,22 @@ function formatDate(dateString: string): string {
       </div>
       <div class="venta-actions">
         <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(venta)" />
+        <Button icon="pi pi-eye" label="Venta Detalles" aria-label="Detalles" @click="mostrarDetalles(venta)" />
         <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(venta)" />
       </div>
     </div>
   </div>
+
+  <Dialog v-model:visible="ventaDetallesDialogVisible" header="Detalles de Venta" :style="{ width: '30rem' }">
+    <div v-if="ventaDetalles" class="venta-detalles">
+      <p><strong>Cliente:</strong> {{ ventaDetalles.cliente.nombres }}</p>
+      <p><strong>Producto:</strong> {{ ventaDetalles.producto.nombre }}</p>
+      <p><strong>Cantidad:</strong> {{ ventaDetalles.cantidad }}</p>
+      <p><strong>Precio Unitario:</strong> {{ ventaDetalles.precioUnitario | currency }}</p>
+      <p><strong>Total Venta:</strong> {{ ventaDetalles.totalVenta | currency }}</p>
+      <p><strong>Fecha de Venta:</strong> {{ formatDate(ventaDetalles.fechaCreacion) }}</p>
+    </div>
+  </Dialog>
 
   <Dialog v-model:visible="mostrarConfirmDialog" header="Confirmar Eliminación" :style="{ width: '25rem' }">
     <p>¿Estás seguro de que deseas eliminar este registro?</p>
@@ -77,7 +96,7 @@ function formatDate(dateString: string): string {
 <style scoped>
 .ventas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cuadrícula responsiva */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   gap: 16px;
   padding: 20px;
 }
@@ -96,7 +115,7 @@ function formatDate(dateString: string): string {
 .venta-header h3,
 .venta-header p,
 .venta-body p {
-  color: white; /* Asegura que los textos en estas secciones sean blancos */
+  color: white; 
 }
 
 .venta-header h3 {
@@ -121,5 +140,10 @@ function formatDate(dateString: string): string {
 
 .venta-actions .p-button {
   margin: 0 4px;
+}
+
+.venta-detalles p {
+  color: white;
+  margin: 10px 0;
 }
 </style>

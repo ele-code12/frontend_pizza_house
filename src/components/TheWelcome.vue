@@ -2,7 +2,7 @@
   <div class="content">
     <section class="descripcion">
       <div class="descripcion-container">
-        <img src="/img/pizza1.gif" alt="Pizza House" class="descripcion-image" />
+        <img src="/img/PorqueElegirnos.jpg" alt="Pizza House" class="descripcion-image" />
         <div class="descripcion-text">
           <h2>Bienvenidos a Pizza House</h2>
           <p>
@@ -62,7 +62,7 @@
     <!-- Descripción debajo de productos -->
     <section class="descripcion-bajo-productos">
       <div class="descripcion-bajo-container">
-        <img src="/img/PorqueElegirnos.jpg" alt="Pizza House" class="descripcion-bajo-image" />
+        <img src="/img/pizza1.gif" alt="Pizza House" class="descripcion-bajo-image" />
         <div class="descripcion-bajo-text">
           <h2>¿Por qué elegirnos?</h2>
           <p>

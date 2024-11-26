@@ -18,5 +18,6 @@ export interface Producto {
 
   categoria: Categoria
 
+  
 
 }
