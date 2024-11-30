@@ -258,6 +258,17 @@
         </div>
       </div>
     </section>
+    <section class="ubicacion">
+  <h2 class="section-title">Visítanos</h2>
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps?q=Sucre,+Bolivia&output=embed"
+      width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+    </iframe>
+  </div>
+</section>
+
+
   </div>
 </template>
 
@@ -276,6 +287,17 @@ export default {
 </script>
 
 <style scoped>
+.ubicacion {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.map-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
 .category-item {
   margin-bottom: 20px;
 }
