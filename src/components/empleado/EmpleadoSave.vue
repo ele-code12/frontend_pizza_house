@@ -39,29 +39,44 @@ const dialogVisible = computed({
 })
 
 async function handleSave() {
+  // Validar que los campos no estén vacíos
   if (!empleado.value.nombres || empleado.value.nombres.trim() === '') {
-    alert('El campo "Nombres" no puede estar vacío.');
-    return;
+    alert('El campo "Nombres" no puede estar vacío.')
+    return
   }
 
   if (!empleado.value.apellidos || empleado.value.apellidos.trim() === '') {
-    alert('El campo "Apellidos" no puede estar vacío.');
-    return;
+    alert('El campo "Apellidos" no puede estar vacío.')
+    return
   }
 
   if (!empleado.value.cargo || empleado.value.cargo.trim() === '') {
-    alert('El campo "Cargo" no puede estar vacío.');
-    return;
+    alert('El campo "Cargo" no puede estar vacío.')
+    return
   }
 
   if (empleado.value.salario === undefined || empleado.value.salario <= 0) {
-    alert('El campo "Salario" debe ser mayor que cero.');
-    return;
+    alert('El campo "Salario" debe ser mayor que cero.')
+    return
   }
 
   if (!empleado.value.fechaContratacion) {
-    alert('El campo "Fecha de Contratación" no puede estar vacío.');
-    return;
+    alert('El campo "Fecha de Contratación" no puede estar vacío.')
+    return
+  }
+
+  // Validar que no exista un empleado con el mismo nombre y apellidos
+  const empleadoExistente = await obtenerEmpleadosExistentes()
+  const empleadoDuplicado = empleadoExistente.some(
+    (e) =>
+      e.nombres.trim().toLowerCase() === empleado.value.nombres.trim().toLowerCase() &&
+      e.apellidos.trim().toLowerCase() === empleado.value.apellidos.trim().toLowerCase() &&
+      (!props.modoEdicion || e.id !== empleado.value.id) // Excluir el empleado actual al editar
+  )
+
+  if (empleadoDuplicado) {
+    alert('Ya existe un empleado con este nombre y apellidos.')
+    return
   }
 
   try {
@@ -84,6 +99,16 @@ async function handleSave() {
     dialogVisible.value = false
   } catch (error: any) {
     alert(error?.response?.data?.message || 'Error al guardar el empleado')
+  }
+}
+
+async function obtenerEmpleadosExistentes() {
+  try {
+    const response = await http.get(ENDPOINT)
+    return response.data as Empleado[]
+  } catch (error) {
+    console.error('Error al obtener empleados:', error)
+    return []
   }
 }
 
@@ -157,6 +182,4 @@ async function handleSave() {
   border: none;
   color: white;
 }
-
-
 </style>
