@@ -25,7 +25,9 @@ const emit = defineEmits(['guardar', 'close', 'eliminar'])
 
 const venta = ref<Venta>({
   ...props.venta,
-  producto: null
+  producto: null,
+  cliente: null,
+  empleado: null
 })
 const clientes = ref<Cliente[]>([])
 const productos = ref<Producto[]>([])
@@ -70,6 +72,25 @@ async function handleSave() {
     !venta.value.empleado
   ) {
     alert('Por favor, complete todos los campos.')
+    return
+  }
+
+  // Validar que el nombre del cliente no se repita
+  const clienteDuplicado = clientes.value.some(
+    (c) => c.nombreCompleto.toLowerCase() === venta.value.cliente.nombreCompleto.toLowerCase()
+  )
+  if (clienteDuplicado) {
+    alert('El cliente ya existe. Por favor, elija otro cliente.')
+    return
+  }
+
+  // Validar que el nombre del producto no se repita
+  const productoDuplicado = productos.value.some(
+    (p) => p.nombre.toLowerCase() === venta.value.producto.nombre.toLowerCase()
+  )
+  if (productoDuplicado) {
+    alert('El producto ya existe. Por favor, elija otro producto.')
+    return
   }
 
   try {
@@ -188,14 +209,14 @@ watch(
 
       <!-- Empleado -->
       <div class="flex items-center gap-4 mb-4">
-        <label for="empleado" class="font-semibold w-4">Usuario</label>
+        <label for="empleado" class="font-semibold w-4">Empleado</label>
         <Select
           id="empleado"
           v-model="venta.empleado"
           :options="empleados"
           optionLabel="nombreCompleto"
           class="flex-auto"
-          placeholder="Seleccione un Usuario"
+          placeholder="Seleccione un Empleado"
         />
       </div>
 

@@ -3,17 +3,25 @@ import type { Categoria } from '@/models/categoria'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 
 const ENDPOINT = 'categorias'
 let categorias = ref<Categoria[]>([])
 const emit = defineEmits(['edit'])
 const categoriaDelete = ref<Categoria | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
+const searchQuery = ref('')
 
 async function obtenerLista() {
   categorias.value = await http.get(ENDPOINT).then((response) => response.data)
 }
+
+const categoriasFiltradas = computed(() => {
+  const lowerQuery = searchQuery.value.toLowerCase()
+  return categorias.value.filter((categoria) =>
+    categoria.nombre.toLowerCase().includes(lowerQuery)
+  )
+})
 
 function emitirEdicion(categoria: Categoria) {
   emit('edit', categoria)
@@ -37,44 +45,54 @@ defineExpose({ obtenerLista })
 </script>
 
 <template>
-  <div class="categorias-grid">
-    <div
-      v-for="(categoria, index) in categorias"
-      :key="categoria.id"
-      class="categoria-card"
-    >
-      <div class="categoria-header">
-        <h3>{{ categoria.nombre }}</h3>
-      </div>
-      <div class="categoria-actions">
-        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(categoria)" />
-        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(categoria)" />
-      </div>
-    </div>
-  </div>
+  <div>
+    <input
+      type="text"
+      v-model="searchQuery"
+      placeholder="Buscar por nombre"
+      class="p-inputtext p-component"
+      style="width: 50%; margin-top: 20px; margin-bottom: 20px"
+    />
 
-  <Dialog
-    v-model:visible="mostrarConfirmDialog"
-    header="Confirmar Eliminación"
-    :style="{ width: '25rem' }"
-  >
-    <p>¿Estás seguro de que deseas eliminar este registro?</p>
-    <div class="flex justify-end gap-2">
-      <Button
-        type="button"
-        label="Cancelar"
-        severity="secondary"
-        @click="mostrarConfirmDialog = false"
-      />
-      <Button type="button" label="Eliminar" @click="eliminar" />
+    <div class="categorias-grid">
+      <div
+        v-for="(categoria, index) in categoriasFiltradas"
+        :key="categoria.id"
+        class="categoria-card"
+      >
+        <div class="categoria-header">
+          <h3>{{ categoria.nombre }}</h3>
+        </div>
+        <div class="categoria-actions">
+          <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(categoria)" />
+          <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(categoria)" />
+        </div>
+      </div>
     </div>
-  </Dialog>
+
+    <Dialog
+      v-model:visible="mostrarConfirmDialog"
+      header="Confirmar Eliminación"
+      :style="{ width: '25rem' }"
+    >
+      <p>¿Estás seguro de que deseas eliminar este registro?</p>
+      <div class="flex justify-end gap-2">
+        <Button
+          type="button"
+          label="Cancelar"
+          severity="secondary"
+          @click="mostrarConfirmDialog = false"
+        />
+        <Button type="button" label="Eliminar" @click="eliminar" />
+      </div>
+    </Dialog>
+  </div>
 </template>
 
 <style scoped>
 .categorias-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Cuadrícula responsiva */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 20px;
 }

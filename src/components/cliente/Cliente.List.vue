@@ -3,17 +3,28 @@ import type { Cliente } from '@/models/cliente'
 import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 
 const ENDPOINT = 'clientes'
 let clientes = ref<Cliente[]>([])
 const emit = defineEmits(['edit'])
 const clienteDelete = ref<Cliente | null>(null)
 const mostrarConfirmDialog = ref<boolean>(false)
+const searchQuery = ref('')
 
 async function obtenerLista() {
   clientes.value = await http.get(ENDPOINT).then((response) => response.data)
 }
+
+const clientesFiltrados = computed(() => {
+  const lowerQuery = searchQuery.value.toLowerCase()
+  return clientes.value.filter((cliente) =>
+    cliente.nombres.toLowerCase().includes(lowerQuery) ||
+    cliente.apellidos.toLowerCase().includes(lowerQuery) ||
+    cliente.direccion.toLowerCase().includes(lowerQuery) ||
+    cliente.celular.toLowerCase().includes(lowerQuery)
+  )
+})
 
 function emitirEdicion(cliente: Cliente) {
   emit('edit', cliente)
@@ -40,48 +51,58 @@ function formatDate(dateString: string): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
 </script>
 
 <template>
-  <div class="clientes-grid">
-    <div
-      v-for="(cliente, index) in clientes"
-      :key="cliente.id"
-      class="cliente-card"
-    >
-      <div class="cliente-header">
-        <h3>{{ cliente.nombres }} {{ cliente.apellidos }}</h3>
-        <p>{{ cliente.direccion }}</p>
-      </div>
-      <div class="cliente-body">
-        <p><strong>Celular:</strong> {{ cliente.celular }}</p>
-        <p><strong>Fecha de Registro:</strong> {{ formatDate(cliente.fechaCreacion) }}</p>
-      </div>
-      <div class="cliente-actions">
-        <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(cliente)" />
-        <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(cliente)" />
-      </div>
-    </div>
-  </div>
+  <div>
+    <input
+      type="text"
+      v-model="searchQuery"
+      placeholder="Buscar por nombre, apellido, dirección o celular"
+      class="p-inputtext p-component"
+      style="width: 50%; margin-top: 20px; margin-bottom: 20px"
+    />
 
-  <Dialog
-    v-model:visible="mostrarConfirmDialog"
-    header="Confirmar Eliminación"
-    :style="{ width: '25rem' }"
-  >
-    <p>¿Estás seguro de que deseas eliminar este registro?</p>
-    <div class="flex justify-end gap-2">
-      <Button
-        type="button"
-        label="Cancelar"
-        severity="secondary"
-        @click="mostrarConfirmDialog = false"
-      />
-      <Button type="button" label="Eliminar" @click="eliminar" />
+    <div class="clientes-grid">
+      <div
+        v-for="(cliente, index) in clientesFiltrados"
+        :key="cliente.id"
+        class="cliente-card"
+      >
+        <div class="cliente-header">
+          <h3>{{ cliente.nombres }} {{ cliente.apellidos }}</h3>
+          <p>{{ cliente.direccion }}</p>
+        </div>
+        <div class="cliente-body">
+          <p><strong>Celular:</strong> {{ cliente.celular }}</p>
+          <p><strong>Fecha de Registro:</strong> {{ formatDate(cliente.fechaCreacion) }}</p>
+        </div>
+        <div class="cliente-actions">
+          <Button icon="pi pi-pencil" aria-label="Editar" @click="emitirEdicion(cliente)" />
+          <Button icon="pi pi-trash" aria-label="Eliminar" @click="mostrarEliminarConfirm(cliente)" />
+        </div>
+      </div>
     </div>
-  </Dialog>
+
+    <Dialog
+      v-model:visible="mostrarConfirmDialog"
+      header="Confirmar Eliminación"
+      :style="{ width: '25rem' }"
+    >
+      <p>¿Estás seguro de que deseas eliminar este registro?</p>
+      <div class="flex justify-end gap-2">
+        <Button
+          type="button"
+          label="Cancelar"
+          severity="secondary"
+          @click="mostrarConfirmDialog = false"
+        />
+        <Button type="button" label="Eliminar" @click="eliminar" />
+      </div>
+    </Dialog>
+  </div>
 </template>
 
 <style scoped>
