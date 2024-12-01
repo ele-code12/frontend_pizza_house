@@ -1,24 +1,29 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-// Importar otros scripts que dependen de jQuery
+// Importar scripts y estilos
 import '@/assets/js/jquery-1.10.2.min.js'
 import '@/assets/js/bootstrap.min.js'
 import '@/assets/js/jquery-1.10.2.js'
 import '@/assets/js/jquery.mixitup.min.js'
 import '@/assets/js/main.js'
 
-// Importar PrimeIcons CSS
 import 'primeicons/primeicons.css'
 
 import MainHeader from '@/components/MainHeader.vue'
 import MainFooter from '@/components/MainFooter.vue'
+
+
+const route = useRoute();
+const showHeaderFooter = computed(() => route.name !== 'login');
 </script>
 
 <template>
-  <MainHeader />
+  <MainHeader v-if="showHeaderFooter" />
   <RouterView />
-  <MainFooter />
+  <MainFooter v-if="showHeaderFooter" />
 </template>
 
 <style>

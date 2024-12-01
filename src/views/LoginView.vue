@@ -52,8 +52,7 @@ export default {
     handleLogin() {
       if (this.username === this.correctUsername && this.password === this.correctPassword) {
         localStorage.setItem('authenticated', 'true');
-        alert('Inicio de sesión exitoso');
-        this.$router.push('/');
+        this.$router.push({ name: 'home' });
       } else {
         alert('Usuario o contraseña incorrectos');
       }
@@ -64,7 +63,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .login-container {
   max-width: 400px;

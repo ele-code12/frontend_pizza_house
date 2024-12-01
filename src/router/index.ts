@@ -1,18 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name : 'home',
-      component : HomeView,
+      redirect: '/login',
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: HomeView,
     },
     {
       path: '/about',
@@ -50,6 +54,17 @@ const router = createRouter({
       component: () => import('../views/VentasDetallesView.vue'),
     },
   ],
-})
+});
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('authenticated') === 'true';
 
-export default router
+  if (to.name !== 'login' && !isAuthenticated) {
+    next({ name: 'login' });
+  } else if (to.name === 'login' && isAuthenticated) {
+    next({ name: 'home' });
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { useRoute, RouterLink } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/index'
 
 const authStore = useAuthStore()
-const location = useRoute()
+const router = useRouter()
 
 const logout = () => {
   authStore.logout()
+  router.push('/login') 
 }
 </script>
 
@@ -33,7 +34,10 @@ const logout = () => {
             <li><RouterLink to="/cliente">Cliente</RouterLink></li>
             <li><RouterLink to="/empleado">Empleado</RouterLink></li>
             <li><RouterLink to="/venta">Ventas</RouterLink></li>
-            <li><RouterLink to="/login">Iniciar Sesión</RouterLink></li>
+            <li>
+              <!-- Botón de salir -->
+              <button class="logout-button" @click="logout">Salir</button>
+            </li>
           </ul>
         </div>
       </div>
