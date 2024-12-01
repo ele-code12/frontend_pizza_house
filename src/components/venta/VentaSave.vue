@@ -75,24 +75,6 @@ async function handleSave() {
     return
   }
 
-  // Validar que el nombre del cliente no se repita
-  const clienteDuplicado = clientes.value.some(
-    (c) => c.nombreCompleto.toLowerCase() === venta.value.cliente.nombreCompleto.toLowerCase()
-  )
-  if (clienteDuplicado) {
-    alert('El cliente ya existe. Por favor, elija otro cliente.')
-    return
-  }
-
-  // Validar que el nombre del producto no se repita
-  const productoDuplicado = productos.value.some(
-    (p) => p.nombre.toLowerCase() === venta.value.producto.nombre.toLowerCase()
-  )
-  if (productoDuplicado) {
-    alert('El producto ya existe. Por favor, elija otro producto.')
-    return
-  }
-
   try {
     const body = {
       cantidad: venta.value.cantidad,
