@@ -188,7 +188,7 @@ watch(
         />
       </div>
 
-      <!-- Empleado -->
+     <!--  Empleado
       <div class="flex items-center gap-4 mb-4">
         <label for="empleado" class="font-semibold w-4">Empleado</label>
         <Select
@@ -199,7 +199,7 @@ watch(
           class="flex-auto"
           placeholder="Seleccione un Empleado"
         />
-      </div>
+      </div> -->
 
       <!-- Botones -->
       <div class="flex justify-end gap-2">
