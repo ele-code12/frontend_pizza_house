@@ -87,7 +87,7 @@ function formatDate(dateString: string): string {
           <p>{{ venta.producto.nombre }}</p>
         </div>
         <div class="venta-body">
-          <!-- <p><strong>Empleado:</strong> {{ venta.empleado.nombres }}</p> -->
+          <p><strong>Empleado:</strong> {{ venta.empleado.nombres }}</p>
           <p><strong>Cantidad:</strong> {{ venta.cantidad }}</p>
           <p><strong>Precio Unitario:</strong> {{ venta.precioUnitario | currency }}</p>
           <p><strong>Total Venta:</strong> {{ venta.totalVenta | currency }}</p>

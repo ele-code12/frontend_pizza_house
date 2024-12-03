@@ -25,9 +25,9 @@ const emit = defineEmits(['guardar', 'close', 'eliminar'])
 
 const venta = ref<Venta>({
   ...props.venta,
-  producto: null,
-  cliente: null,
-  empleado: null
+  producto: {} as Producto,
+  cliente: {} as Cliente,
+  empleado: {} as Empleado
 })
 const clientes = ref<Cliente[]>([])
 const productos = ref<Producto[]>([])
@@ -188,7 +188,7 @@ watch(
         />
       </div>
 
-     <!--  Empleado
+    <!--   Empleado -->
       <div class="flex items-center gap-4 mb-4">
         <label for="empleado" class="font-semibold w-4">Empleado</label>
         <Select
@@ -199,7 +199,7 @@ watch(
           class="flex-auto"
           placeholder="Seleccione un Empleado"
         />
-      </div> -->
+      </div>
 
       <!-- Botones -->
       <div class="flex justify-end gap-2">
