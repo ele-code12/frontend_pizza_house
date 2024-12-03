@@ -15,7 +15,7 @@
             <li><a href="#">Bases de la promoción Pizza House</a></li>
             <li><a href="#">Política de Privacidad</a></li>
             <li><a href="#">Reglamento de programa Pizza House</a></li>
-            <li><a href="#">Bases de la promoción Registrate Compra y Gana</a></li>
+            <li><a href="#">Bases de la promoción Regístrate Compra y Gana</a></li>
           </ul>
         </div>
         <div class="footer-column">
@@ -26,6 +26,15 @@
             <li><a href="#">Contacto</a></li>
             <li><a href="#">Contáctanos</a></li>
           </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Ubicación</h3>
+          <p>
+            Av. Principal  #123<br />
+            Ciudad Sucre, País Bolivia<br />
+            Tel: (123) 456-7890<br />
+            Email: contacto@pizzahouse.com
+          </p>
         </div>
       </div>
       <div class="footer-version">
@@ -58,7 +67,6 @@
   margin-left: 10px;
   opacity: 0.5;
 }
-
 
 .footer-links {
   display: flex;
@@ -95,6 +103,12 @@
   text-decoration: underline;
 }
 
+.footer-column p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: white;
+}
+
 .footer-version {
   font-size: 12px;
   color: white;
@@ -109,6 +123,6 @@
 .sub-footer-text {
   margin: 0;
   font-size: 14px;
-  color : white;
+  color: white;
 }
 </style>

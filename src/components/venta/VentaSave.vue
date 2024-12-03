@@ -74,7 +74,6 @@ async function handleSave() {
     alert('Por favor, complete todos los campos.')
     return
   }
-
   try {
     const body = {
       cantidad: venta.value.cantidad,
